@@ -31,8 +31,7 @@ void createGrid(Grid<bool> &grid,GWindow w,GBufferedImage img){
         }
     }
 }
-
-
+//check number of balck points in spot
 void CheckSpot(Grid<bool> &grid,MyQueue<point> &blackPoints ){
     while(!blackPoints.isEmpty()){
         point curr = blackPoints.front();
@@ -56,7 +55,7 @@ void CheckSpot(Grid<bool> &grid,MyQueue<point> &blackPoints ){
             NeighboursCount = 0;
     }
 }
-//searching black spots with
+//searching black spots
 void searchPeople(Grid<bool>&grid){
 
     MyQueue<point> blackPoints;
