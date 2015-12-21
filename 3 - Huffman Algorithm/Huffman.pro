@@ -9,5 +9,6 @@ include(deployment.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    node.h
+    node.h \
+    myvector.h
 

@@ -2,12 +2,12 @@
 #define NODE
 
 
-struct tochka{
+struct point{
     int row;
     int col;
 };
-tochka makepoint(int r,int c){
-    tochka point = {r,c};
+point makepoint(int r,int c){
+    point point = {r,c};
     return point;
 }
 #endif // NODE

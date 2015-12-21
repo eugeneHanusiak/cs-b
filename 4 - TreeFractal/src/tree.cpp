@@ -6,7 +6,7 @@ double SIDE_SIZE = 120; //size of the branch at the start of program
 const int cycleCount = 7; // density of tree branches
 
 void drawFractal(GWindow gw,GPoint root,double SIDE_SIZE,int cycleCount,double theta){
-    if(cycleCount <2){
+    if(cycleCount < 2){
         gw.setColor("GREEN");
     }else{
         gw.setColor("GRAY");

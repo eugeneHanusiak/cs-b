@@ -1,10 +1,9 @@
 #include <iostream>
-#include <vector>
 #include <map>
 #include <list>
 #include <fstream>
 #include "node.h"
-
+#include "myvector.h"
 using namespace std;
 
 //Huffmans tree
@@ -12,23 +11,25 @@ list<Node*> t;
 //freequencies of leter or symbols
 map<char,int> freek;
 //binary code of each letter or symbol
-vector<bool> code;
+MyVector<bool> code;
 //letter or symbol and its binary huffmann code
-map<char,vector<bool> > table;
+map<char,MyVector<bool> > table;
 
 void BuildTable(Node *root) {
+
     if (root->left!=NULL) {
-        code.push_back(0);
+        code.pushBack(0);
         BuildTable(root->left);
     }
     if (root->right!=NULL){
-        code.push_back(1);
+        code.pushBack(1);
         BuildTable(root->right);
     }
     if (root->left==NULL && root->right==NULL) {
         table[root->c]=code;
+
     }
-    code.pop_back();
+    code.PopBack();
 }
 
 void make_newTree(map<char,int> m){
@@ -57,10 +58,11 @@ void make_newTree(map<char,int> m){
 
 compress(ifstream &f,list<Node*> &t,string s){
     //vector of frequencies of chars that i will push to the out file with binary code of file
-    vector<Node>tab;
+    MyVector<Node>tab;
     //reading frequencies of symbols//
     while (!f.eof()){
-        char c = f.get();
+        unsigned char c = f.get();
+
         freek[c]++;
     }
     //make a tree of huffman
@@ -68,14 +70,14 @@ compress(ifstream &f,list<Node*> &t,string s){
     // going to the start o file
     f.clear(); f.seekg(0);
     string file = s;
-    file =file +".zap";
+    file = file +".zap";
     //writing it to the compressed file
     ofstream g(file.c_str(),ios::binary);
     map<char,int>::iterator it;
     for (it =freek.begin(); it!=freek.end();it++) {
         int size=tab.size();
         Node n(it->second,it->first,size);
-        tab.push_back(n);
+        tab.pushBack(n);
     }
 
     // write to the file tree's size for future read tree from file
@@ -92,7 +94,7 @@ compress(ifstream &f,list<Node*> &t,string s){
 
     while (!f.eof()){
         char c = f.get();
-        vector<bool> x = table[c];
+        MyVector<bool> x = table[c];
         for(int n = 0; n < x.size(); n++){
             buf = buf | x[n]<<(7-count);
             count++;
@@ -106,6 +108,9 @@ compress(ifstream &f,list<Node*> &t,string s){
     f.close();
     g.close();
     cout<<"File succssesfully compressed to "<<file<<"!!!"<<endl;
+    for(int i(0);i< code.size();i++ ){
+        cout<<code[i];
+    }
 
 }
 
@@ -119,7 +124,7 @@ void decompress(string &s) {
     //output stream
     ofstream g(file.c_str());
     //decoded vec of letter and symbol freequencies
-    vector<Node>tab;
+    MyVector<Node>tab;
     //map of freequencies
     map<char,int> fin;
     //the size of our vector of freequencies
@@ -129,11 +134,11 @@ void decompress(string &s) {
     for (int i = 0; i < treeSize; i++) {
         Node n ;
         f.read((char*) &n, sizeof (n));
-        tab.push_back(n);
+        tab.pushBack(n);
     }
     //pushing vector to the map
     for(int i(0);i<tab.size();i++){
-        fin.insert(pair<char,int>(tab.at(i).c,tab.at(i).a));
+        fin.insert(pair<char,int>(tab[i].c,tab[i].a));
     }
     //makes a tree
     make_newTree(fin);
