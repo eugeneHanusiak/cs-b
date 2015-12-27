@@ -113,7 +113,7 @@ void compress(ifstream &f,string s){
     }
     f.close();
     g.close();
-    cout<<"File succssesfully compressed to   "<<name<<"!!!"<<endl;
+    cout<<"File succssesfully compressed to "<<name<<"!!!"<<endl;
 }
 //decompressing "file"
 void decompress(string &s) {
@@ -172,24 +172,26 @@ void decompress(string &s) {
     cout<<"File succssesfully decompressed!"<<endl;
 }
 void enterFileName(){
-    cout <<"Please enter name of the file which you want to work with"<<endl;
+    cout <<"Please enter name of the file which you want to work with!"<<endl;
     //name of file
     string fileName;
     getline(cin, fileName);
     ifstream f(fileName.c_str(),ios::binary);
     if(f){
-    cout<<"To compress file - put  1.                  to decompress - put 2."<<endl;
+    cout<<"To compress file - enter 'compress'     to decompress - 'decompress' "<<endl;
     }else{
         cout<<"No such file"<<endl;
     }
-    string p;
+    string cmd;
     while(true){
-            getline(cin,p);
-        if(p == "1"){
+            getline(cin,cmd);
+        if(cmd == "compress"){
             compress(f,fileName);
             break;
-        }else if(p == "2") {
+        }else if(cmd == "decompress") {
             decompress(fileName);
+            break;
+        }else if (cmd == "QUIT") {
             break;
         }else{
             break;
