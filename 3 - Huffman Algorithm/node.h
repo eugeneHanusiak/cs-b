@@ -6,12 +6,12 @@ class Node
 {
     public:
      int a;
-     char c;
+     unsigned char c;
      int size;
      Node *left, *right;
 
      Node(){left=right=NULL;}
-     Node(int some,char som,int s){
+     Node(int some,unsigned char som,int s){
          a=some;
          c=som;
          size=s;
@@ -22,14 +22,6 @@ class Node
         a = L->a + R->a;  }
 };
 
-
-struct MyCompare
-{
-    bool operator()(const Node* l, const Node* r) const
-    {
-        return l->a < r->a;
-    }
-};
 
 #endif // NODE_H
 

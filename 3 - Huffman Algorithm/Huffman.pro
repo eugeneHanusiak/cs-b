@@ -10,5 +10,6 @@ qtcAddDeployment()
 
 HEADERS += \
     node.h \
-    myvector.h
+    myvector.h \
+    mylist.h
 

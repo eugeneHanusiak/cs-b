@@ -1,7 +1,6 @@
 #ifndef MYQUEUE
 #define MYQUEU
 
-
 #include <vector>
 #include <iostream>
 #include "node.h"

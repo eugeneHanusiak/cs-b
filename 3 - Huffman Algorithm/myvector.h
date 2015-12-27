@@ -8,6 +8,7 @@ class MyVector{
 
 public:
     MyVector();
+    MyVector(int s);
     MyVector(const MyVector<T> & src);
     MyVector<T> & operator=(const MyVector<T> & src);
     ~MyVector();
@@ -16,8 +17,6 @@ public:
     void PopBack();
     void clear();
     // Inserts element in vector in the specified index
-    void insert(int, T);
-    //check for empty
     bool isEmpty() const;
     // Removes value at index int
     void remove(int);
@@ -33,7 +32,7 @@ private:
     int Size;
     //number of the element in array
     int count;
-    static const int initSize = 10;
+    static const int initSize = 2;
     void extendArray();
 };
 //Constructor
@@ -44,15 +43,19 @@ MyVector<T>::MyVector(){
     count = 0;
 }
 template<typename T>
+MyVector<T>::MyVector(int s){
+    array = new T[s];
+    Size = s;
+    count = s;
+}
+template<typename T>
 T & MyVector<T>::operator[](int index){
     if(index < 0 || index >= count){
-        cout << "!!!!   Index is not correct   !!!!" <<endl;
+        cout << "!!!!   Index is not correct   !!!!" <<index<<endl;
         exit(1);
     }
-
     return array[index];
 }
-
 template<typename T>
 void MyVector<T>::pushBack(T value){
     if (count == Size) {
@@ -64,39 +67,15 @@ void MyVector<T>::pushBack(T value){
 template<typename T>
 void MyVector<T>::PopBack(){
     if(count >= 0){
+
         count--;
     }else{
         cout<<"Vector is EMPTY"<<endl;
-    }
-
+    }\
 }
-
 template <typename T>
 void MyVector<T>::clear(){
     count = 0;
-}
-
-template <typename T>
-void MyVector<T>::insert(int index, T value){
-    if (count == Size) extendArray();
-    if(index < 0 || index >= count){
-        cout << "!!!!   Index is not correct   !!!!" <<endl;
-        exit(1);
-    }
-
-    T *tmpArray = new T[count - index];
-    int j = 0;
-    for(int i = index; i < count; i++){
-        tmpArray[j] = array[i];
-        j++;
-    }
-    j = 0;
-    array[index] = value;
-    for (int i = index + 1; i <= count; i++){
-        array[i] = tmpArray[j];
-        j++;
-    }
-    count++;
 }
 
 template <typename T>

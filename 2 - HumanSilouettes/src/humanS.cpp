@@ -2,7 +2,6 @@
 #include "windows.h"
 #include <iostream>
 #include "console.h"
-#include "strlib.h"
 #include "grid.h"
 #include "gwindow.h"
 #include "gbufferedimage.h"
@@ -10,15 +9,15 @@
 #include "myqueue.h"
 using namespace std;
 
-//shade of Gray color;
-const int Gray = 14145495;
-const int minNumPoints = 2500;
+//shade of Gray color(almost white);
+const int Gray = 14119285;
+const int minNumPoints = 1000;
 int HumansCount = 0;
 int NeighboursCount = 0;
 
 //bool Grid of the image which contains black(true) ana white(false) points according to image
 Grid<bool> grid (1000,700);
-
+//read image and set true in grid to pixel that gray or more dark than gray
 void createGrid(Grid<bool> &grid,GWindow w,GBufferedImage img){
 
     for(int i(0);i<img.getWidth();i++){
@@ -31,8 +30,8 @@ void createGrid(Grid<bool> &grid,GWindow w,GBufferedImage img){
         }
     }
 }
-//check number of balck points in spot
-void CheckSpot(Grid<bool> &grid,MyQueue<point> &blackPoints ){
+//check number of balck points at blur
+void CheckBlur(Grid<bool> &grid,MyQueue<point> &blackPoints ){
     while(!blackPoints.isEmpty()){
         point curr = blackPoints.front();
         blackPoints.pop();
@@ -40,6 +39,7 @@ void CheckSpot(Grid<bool> &grid,MyQueue<point> &blackPoints ){
             for(int column = curr.col - 1; column <= curr.col + 1; column++){
                 if(grid.inBounds (row, column) && grid.get (row, column)){
                     point neighbour = makepoint (row, column);
+
                         blackPoints.push_back(neighbour);
                         NeighboursCount++;
                     grid.set (row, column, false);
@@ -47,7 +47,7 @@ void CheckSpot(Grid<bool> &grid,MyQueue<point> &blackPoints ){
             }
         }
     }
-    //if spot has neighbours more than minNumPoint we assume that this man
+    //if blur has neighbours more than minNumPoint we assume that this man
     if(blackPoints.isEmpty() && NeighboursCount > minNumPoints ){
         HumansCount++;
         NeighboursCount = 0;
@@ -55,9 +55,9 @@ void CheckSpot(Grid<bool> &grid,MyQueue<point> &blackPoints ){
             NeighboursCount = 0;
     }
 }
-//searching black spots
-void searchPeople(Grid<bool>&grid){
-
+//searching black blures
+void searchPeople(Grid<bool>&grid){\
+    // array of black points (neighbours) at blur
     MyQueue<point> blackPoints;
     int rows = grid.numRows ();
     int columns = grid.numCols ();
@@ -66,7 +66,8 @@ void searchPeople(Grid<bool>&grid){
             if(grid.get (i, j) == true){
                 point black = makepoint(i, j);
                 blackPoints.push_back(black);
-                CheckSpot(grid,blackPoints);
+                //chek number of black ponts at blur
+                CheckBlur(grid,blackPoints);
             }
         }
     }

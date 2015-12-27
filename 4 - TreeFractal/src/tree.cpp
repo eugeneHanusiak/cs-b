@@ -26,20 +26,18 @@ int main() {
     //open a window
     GWindow gw (1000, 600);
     //main branch position by horizon;
-    double theta = 90;
+    double corner = 90;
 
     //the sun
     for(int i(0);i<50;i++){
         gw.setColor("YELLOW");
         gw.drawPolarLine(100,100,150,i*7.2);
-
     }
     gw.setColor("ORANGE");
     gw.fillOval(50,50,100,100);
 
     //star point of the tree(root)
     GPoint root(gw.getWidth()/2,gw.getHeight());
-    drawFractal(gw,root,SIDE_SIZE,cycleCount,theta);
+    drawFractal(gw,root,SIDE_SIZE,cycleCount,corner);
     return 0;
 }
-
