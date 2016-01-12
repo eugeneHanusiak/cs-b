@@ -180,7 +180,7 @@ void decompress(string &s) {
     cout<<"File succssesfully decompressed!"<<endl;
 }
 
-int main(arc,arv){
+int main(){
     setlocale(LC_ALL, "Russian");
     cout <<"Wellcome to the HUFFMAN algorithm programm"<<endl;
     cout <<"Please enter name of the file which you want to work with!"<<endl;
