@@ -9,11 +9,10 @@
 using namespace std;
 
 //in this vector i will save polish record of formula
-MyVector<string> result;
+MyVector<string> polishRecord;
 
 // rate of operators
-int operandsRate(const char ch)
-{
+int operandsRate(const char ch) {
     switch (ch) {
     case '^':
         return 3;
@@ -29,89 +28,83 @@ int operandsRate(const char ch)
 }
 
 //checking whether the number
-bool isNum(char ch)
-{
+bool isNumber(char ch) {
     return (('0' <= ch) && (ch <= '9')) || (ch == '.');
 }
 //checking whether the operator
-bool isOperator(char ch)
-{
+bool isOperator(char ch) {
     return (ch == '+' || ch == '-' || ch == '/' || ch == '*' || ch == '^');
 }
 
 //writes a Polish record
-void PolishRecord(string formula)
-{
+void PolishRecord(string expression) {
+    //buffer stack that save operators before put them to output
     MyStack<char> operators;
+    //buffer string that save numbers and operators before put them to the PolishRecord vector
     string output("");
-    for (int i = 0; i < formula.length(); ++i) {
+    for (int i = 0; i < expression.length(); ++i) {
         // checking whether formual[i] is number or "-" on first position or first "-" in the scope
-        if (isNum(formula[i]) || (formula[i] == '-' && i == 0) || (i > 0 && formula[i - 1] == '(' && formula[i] == '-')) {
+        if (isNumber(expression[i]) || (expression[i] == '-' && i == 0) || (i > 0 && expression[i - 1] == '(' && expression[i] == '-')) {
             // checking is formula[i] the last character in number
-            if (i + 1 == formula.length() || isOperator(formula[i + 1]) || formula[i + 1] == '(' || formula[i + 1] == ')') {
-                output = output + formula[i];
-                result.pushBack(output);
+            if (i + 1 == expression.length() || isOperator(expression[i + 1]) || expression[i + 1] == '(' || expression[i + 1] == ')') {
+                output = output + expression[i];
+                polishRecord.pushBack(output);
                 output = "";
             }
             else {
-                output = output + formula[i];
+                output = output + expression[i];
             }
             //checking whether open scope (pushing it to stack)
         }
-        else if (formula[i] == '(') {
+        else if (expression[i] == '(') {
             operators.push('(');
             //checking whether close scope
         }
-        else if (formula[i] == ')') {
+        else if (expression[i] == ')') {
             while (operators.top() != '(') {
                 output = output + operators.top();
                 operators.pop();
-                result.pushBack(output);
+                polishRecord.pushBack(output);
                 output = "";
             }
             operators.pop();
             //compare rate of operator at formula[i] and at the top of the Stack of operators and push it to the vector
         }
-        else if (isOperator(formula[i])) {
-            while (!operators.empty() && (operandsRate(operators.top()) >= operandsRate(formula[i]))) {
+        else if (isOperator(expression[i])) {
+            while (!operators.empty() && (operandsRate(operators.top()) >= operandsRate(expression[i]))) {
                 output = output + operators.top();
                 operators.pop();
-                result.pushBack(output);
+                polishRecord.pushBack(output);
                 output = "";
             }
-            operators.push(formula[i]);
+            operators.push(expression[i]);
         }
         else {
             throw "Error incoming data";
         }
-        cout << output;
     }
-    // checking char that left at the stack
-    if (operators.size() > 0) {
-        for (int i = 0; i < operators.size(); ++i) {
-            output = output + operators.top();
-            operators.pop();
-            result.pushBack(output);
-            output = "";
-        }
-        if (operators.size() > 0) {
-            output = output + operators.top();
-            operators.pop();
-            result.pushBack(output);
-        }
+    // checking char that left in the stack
+    while (operators.size() > 0) {
+        output = output + operators.top();
+        operators.pop();
+        polishRecord.pushBack(output);
+        output = "";
     }
 }
-//reading and calculate poland record
-void calculate(MyVector<string>& PolRecord)
-{
+
+//reading polish record and calculate it
+void calculate(MyVector<string>& polishRecord) {
+    /* buffer stack of operands where we push two operand that we met in record
+    and then using this operand when met in record operator */
     MyStack<double> operands;
-    for (int i(0); i < PolRecord.size(); i++) {
-        if (isNum(PolRecord[i][0])) {
-            //convert string to double and push it to stack
-            operands.push(stod(PolRecord[i]));
+    for (int i = 0; i < polishRecord.size(); i++) {
+        if (isNumber(polishRecord[i][0])) {
+            //if token is number convert string to double and push it to stack operands
+            operands.push(stod(polishRecord[i]));
         }
-        else if (isOperator(PolRecord[i][0])) {
-            char t = PolRecord[i][0];
+        //if token is operator -  make action that means this operator with two first numbers in operands stack
+        else if (isOperator(polishRecord[i][0])) {
+            char t = polishRecord[i][0];
             double one = operands.top();
             operands.pop();
             double two = operands.top();
@@ -134,24 +127,25 @@ void calculate(MyVector<string>& PolRecord)
                 result = pow(two, one);
                 break;
             }
+            //pushing result of action(number) to the operands stack
             operands.push(result);
         }
     }
+    //when cycle finished all operators where used and in operands stack where one number(result of expression)
     double result = operands.top();
-    cout << result << endl;
+    cout<<result<<endl;
 }
 
-int main()
-{
+int main() {
 
-    string formula;
-    cout << "Enter you expression: " << endl;
+    string expression;
+    cout << "Enter your expression: " << endl;
     //read expression and put it to string formula
-    getline(cin, formula);
+    getline(cin,expression);
     //make a polish record
-    PolishRecord(formula);
+    PolishRecord(expression);
     //calculate polish record
-    calculate(result);
+    calculate(polishRecord);
 
     return 0;
 }

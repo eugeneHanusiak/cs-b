@@ -13,6 +13,7 @@ public:
     ~MyVector();
     //adds T value to the end of vector
     void pushBack(T);
+    //reset count of elements in array to zero(clear array)
     void clear();
     //check for empty
     bool isEmpty() const;
@@ -51,6 +52,7 @@ T & MyVector<T>::operator[](int index){
 
 template<typename T>
 void MyVector<T>::pushBack(T value){
+    //if count of elements in array stay at the last element - array extending
     if (count == Size) {
         extendArray();
     }

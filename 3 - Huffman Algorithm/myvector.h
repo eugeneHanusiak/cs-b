@@ -14,7 +14,9 @@ public:
     ~MyVector();
     //adds T value to the end of vector
     void pushBack(T);
+    //remove last element in vector
     void PopBack();
+    //clear vector
     void clear();
     // Inserts element in vector in the specified index
     bool isEmpty() const;

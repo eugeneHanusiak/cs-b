@@ -6,14 +6,17 @@ template <typename T>
 
 class MyList {
 private:
-
+    //struct stores data and pointers to previous and next element in list
     struct Node {
         T data;
         Node *next;
         Node *prev;
     };
+    //count of elements in list
     int count;
+    //pointer to head of list
     Node *head;
+    //pointer to tali of list
     Node *tail;
 public:
     MyList();
@@ -36,14 +39,14 @@ public:
     void sort();
 };
 
-//Constructor
+/*Constructor*/
 template <typename T>
 MyList<T>::MyList() {
     head = tail = NULL;
     count = 0;
 }
 
-//Copy-constructor
+/*Copy-constructor*/
 template <typename T>
 MyList<T>::MyList(const MyList<T>& otherList) {
     if (!otherList.empty()) {
@@ -57,13 +60,13 @@ MyList<T>::MyList(const MyList<T>& otherList) {
         exit(0);
     }
 }
-//Destructor
+/*Destructor*/
 template <typename T>
 MyList<T>::~MyList() {
     clear();
 }
 
-//Add element to the start of list
+/*Add element to the start of list*/
 template <typename T>
 void MyList<T>::push_front(const T& value) {
     Node *n = new Node;
@@ -81,7 +84,7 @@ void MyList<T>::push_front(const T& value) {
     count++;
 }
 
-//Add element to the end of list
+/*Add element to the end of list*/
 template <typename T>
 void MyList<T>::push_back(const T& value) {
     Node *n = new Node;
@@ -99,7 +102,7 @@ void MyList<T>::push_back(const T& value) {
     count++;
 }
 
-//Delete the first element from the list
+/*Delete the first element from the list*/
 template <typename T>
 void MyList<T>::pop_front() {
     if (empty()) {
@@ -116,7 +119,7 @@ void MyList<T>::pop_front() {
     }
 }
 
-//Delete the last element from the list
+/*Delete last element from the list*/
 template <typename T>
 void MyList<T>::pop_back() {
     if (empty()) {
@@ -132,19 +135,19 @@ void MyList<T>::pop_back() {
     }
 }
 
-//Check is empty
+/*Check the list is empty*/
 template <typename T>
 bool MyList<T>::empty() {
     return count == 0;
 }
 
-//Number of elements in the list
+/*Return number of elements of the list*/
 template <typename T>
 int MyList<T>::size() {
     return count;
 }
 
-//The first element in the list
+/*Return first element in the list*/
 template <typename T>
 T& MyList<T>::front() {
     if (empty()) {
@@ -154,7 +157,7 @@ T& MyList<T>::front() {
     return head->data;
 }
 
-//The last element in the list
+/*Return last element in the list*/
 template <typename T>
 T& MyList<T>::back() {
     if (empty()) {
@@ -164,19 +167,19 @@ T& MyList<T>::back() {
     return tail->data;
 }
 
-//Pointer to the start of the list
+/*Pointer to the start of the list*/
 template <typename T>
 typename MyList<T>::iterator MyList<T>::begin() {
     return head;
 }
 
-//Pointer to the end of the list
+/*Pointer to the end of the list*/
 template <typename T>
 typename MyList<T>::iterator MyList<T>::end() {
     return tail;
 }
 
-//Delete all elements of the list
+/*Delete all elements of the list(clear list)*/
 template <typename T>
 void MyList<T>::clear() {
     while (head) {
@@ -186,7 +189,7 @@ void MyList<T>::clear() {
     count = 0;
 }
 
-//Insert element to the list in current position
+/*Insert element to the list in current position using iterator*/
 template <typename T>
 void MyList<T>::insert(iterator it, const T& value) {
     if (empty()) {
@@ -211,7 +214,7 @@ void MyList<T>::insert(iterator it, const T& value) {
     }
 }
 
-//Delete element from the list from the current position
+/*Delete element from the list from the current position using iterator*/
 template <typename T>
 void MyList<T>::erase(iterator it) {
     if (empty()) {
@@ -235,7 +238,7 @@ void MyList<T>::erase(iterator it) {
     }
 }
 template <typename T>
-//sort elements in list
+/*Sorting elements in list*/
 void MyList<T>::sort() {
     if (empty()) {
         cerr << "Can't 'insert'. The list is empty." << endl;
@@ -253,7 +256,7 @@ void MyList<T>::sort() {
             {
                 tempNode = current->next;
 
-                if (current->data->a > tempNode->data->a)
+                if (current->data->f > tempNode->data->f)
                 {
                     changeFlag = 1;
                     current->next = tempNode->next;

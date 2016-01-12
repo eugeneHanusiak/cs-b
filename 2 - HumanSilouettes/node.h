@@ -1,7 +1,7 @@
 #ifndef NODE
 #define NODE
 
-
+//struct that stores row and column of point
 struct point{
     int row;
     int col;

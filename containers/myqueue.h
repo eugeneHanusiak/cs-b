@@ -13,7 +13,7 @@ class MyQueue {
 private:
     int queueSize; // the size of the queue (number of elements)
     int begin, end; // the point of the begin and the end of the queue
-    vector<T> queue;
+    vector<T> queue; // vector where will store queue data
 public:
     MyQueue(int = 10); // default size of the queue = 10
     MyQueue(const MyQueue<T> &); // copy constructor
@@ -27,7 +27,7 @@ public:
     bool isEmpty();
     void operator=(const MyQueue<T> &);
 };
-
+//costructor
 template <typename T>
 MyQueue<T>::MyQueue(int s) {
     queueSize = s;
@@ -35,7 +35,7 @@ MyQueue<T>::MyQueue(int s) {
     end = 0;
     queue.reserve(queueSize);
 }
-
+//copy constructor
 template <typename T>
 MyQueue<T>::MyQueue(const MyQueue<T>& otherMyQueue) {
     queueSize = otherMyQueue.queueSize;
@@ -47,18 +47,18 @@ MyQueue<T>::MyQueue(const MyQueue<T>& otherMyQueue) {
         queue.push_back(otherMyQueue.queue[i]);
     }
 }
-
+//destructor
 template <typename T>
 MyQueue<T>::~MyQueue() {
 }
-
+//method push element to the end of queue
 template <typename T>
 void MyQueue<T>::push_back(T elem) {
     queue.push_back(elem);
     end++;
     queueSize = queue.size();
 }
-
+//method delete top element of queue(first element)
 template <typename T>
 void MyQueue<T>::pop() {
     //check the number of elements
@@ -69,7 +69,7 @@ void MyQueue<T>::pop() {
         queueSize = queue.size();
     }
 }
-
+//return firs element of queue(top element)
 template <typename T>
 T &MyQueue<T>::front() {
     T *frontElem;
@@ -78,7 +78,7 @@ T &MyQueue<T>::front() {
     }
     return *frontElem;
 }
-
+//return last element of queue(back element)
 template <typename T>
 T &MyQueue<T>::back() {
     T *EndElem;
@@ -87,7 +87,7 @@ T &MyQueue<T>::back() {
     }
     return *EndElem;
 }
-
+//clear queue(set end, begin and queueSize to zero and clear vector that store queue data)
 template <typename T>
 void MyQueue<T>::clear() {
     if (queue.size() > 0) {
@@ -97,12 +97,12 @@ void MyQueue<T>::clear() {
         queue.clear();
     }
 }
-
+//returns size of queue
 template <typename T>
 int MyQueue<T>::size() {
     return queueSize;
 }
-
+//return true if queue is empty
 template <typename T>
 bool MyQueue<T>::isEmpty() {
     return queueSize == 0;

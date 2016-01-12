@@ -10,71 +10,62 @@
 using namespace std;
 
 //shade of Gray color(almost white);
-const int Gray = 14119285;
-const int minNumPoints = 1000;
-int HumansCount = 0;
-int NeighboursCount = 0;
+const int GRAY = 14119285;
+//minimum number of black points to think that is human(depends of the picture)
+const int minNumNeighbours = 1000;
+int humansCount = 0;
+//count of black points(neighbours) at blur(human)
+int neighboursCount = 0;
 
-//bool Grid of the image which contains black(true) ana white(false) points according to image
-Grid<bool> grid (1000,700);
-//read image and set true in grid to pixel that gray or more dark than gray
-void createGrid(Grid<bool> &grid,GWindow w,GBufferedImage img){
-
-    for(int i(0);i<img.getWidth();i++){
-        for(int j(0);j<img.getHeight();j++){
-            if(img.getRGB(i,j) <= Gray ){
-                grid.set(j,i,true);
-            }else{
-                grid.set(j,i,false);
-            }
-        }
-    }
-}
 //check number of balck points at blur
-void CheckBlur(Grid<bool> &grid,MyQueue<point> &blackPoints ){
-    while(!blackPoints.isEmpty()){
+void checkBlur(GBufferedImage &img,MyQueue<point> &blackPoints ) {
+    //if there are not checked black points in queue - take first point in the queue deleting it and searching its neighbours
+    while(!blackPoints.isEmpty()) {
         point curr = blackPoints.front();
         blackPoints.pop();
-        for(int row = curr.row - 1; row <= curr.row + 1; row++){
-            for(int column = curr.col - 1; column <= curr.col + 1; column++){
-                if(grid.inBounds (row, column) && grid.get (row, column)){
-                    point neighbour = makepoint (row, column);
-
+        for(int row = curr.row-1; row <= curr.row + 1; row++) {
+            for(int column = curr.col-1; column <= curr.col + 1; column++) {
+                if(row <= img.getWidth() & row >= 0 & column <= img.getHeight() & column >= 0) {
+                    //if neighbour is black set it color white and add to queue of neighbours
+                    if(img.getRGB(row,column) <= GRAY) {
+                        point neighbour = makepoint (row, column);
                         blackPoints.push_back(neighbour);
-                        NeighboursCount++;
-                    grid.set (row, column, false);
+                        neighboursCount++;
+                        //set white color to black point
+                        img.setRGB(row, column,16777215);
+                    }
                 }
             }
         }
     }
-    //if blur has neighbours more than minNumPoint we assume that this man
-    if(blackPoints.isEmpty() && NeighboursCount > minNumPoints ){
-        HumansCount++;
-        NeighboursCount = 0;
+    //if queue is empty(all neighbours is checked) and blur has neighbours more than minNumPoint we assume that this man
+    if(blackPoints.isEmpty() && neighboursCount > minNumNeighbours ){
+        humansCount++;
+        neighboursCount = 0;
     } else {
-            NeighboursCount = 0;
+        neighboursCount = 0;
     }
 }
 //searching black blures
-void searchPeople(Grid<bool>&grid){\
-    // array of black points (neighbours) at blur
+void searchPeople(GBufferedImage &img) {
+    // array of black points (neighbours) on blur
     MyQueue<point> blackPoints;
-    int rows = grid.numRows ();
-    int columns = grid.numCols ();
-    for(int i = 0; i < rows; i++){
-        for(int j = 0; j < columns; j++){
-            if(grid.get (i, j) == true){
+    int rows = img.getWidth();
+    int columns = img.getHeight();
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < columns; j++) {
+            if(img.getRGB(i, j) <= GRAY) {
                 point black = makepoint(i, j);
                 blackPoints.push_back(black);
-                //chek number of black ponts at blur
-                CheckBlur(grid,blackPoints);
+                //chek number of black points at blur
+                checkBlur(img,blackPoints);
             }
         }
     }
-    if(HumansCount==1){
-        cout << "There is about " <<HumansCount<< " human on this image." << endl;
-    }else{
-        cout << "There are about " <<HumansCount<< " humans on this image." << endl;
+    if(humansCount==1) {
+        cout << "There is about " <<humansCount<< " human on this image." << endl;
+    }else {
+        cout << "There are about " <<humansCount<< " humans on this image." << endl;
     }
 }
 
@@ -82,14 +73,13 @@ int main() {
 
     GWindow w;
     GBufferedImage img;
-    cout<<"Ente name of the image :  ";
+    cout<<"Enter name of the image :  ";
     string s;
     getline(cin,s);
     img.load(s.c_str());
     w.setCanvasSize(img.getWidth(),img.getHeight());
     w.add(&img);
-    createGrid(grid,w,img);
-    searchPeople(grid);
+    //searching black blures on image
+    searchPeople(img);
     return 0;
 }
-

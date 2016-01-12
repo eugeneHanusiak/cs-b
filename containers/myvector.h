@@ -13,6 +13,7 @@ public:
     ~MyVector();
     //adds T value to the end of vector
     void pushBack(T);
+    //clear vector
     void clear();
     //check for empty
     bool isEmpty() const;
@@ -26,11 +27,15 @@ public:
     T & operator[](int);
 
 private:
+    //array that will store vector data
     T *array;
+    //size of array
     int Size;
     //number of the element in array
     int count;
+    //default init size of vector
     static const int initSize = 10;
+    //method extends vector on its size
     void extendArray();
 };
 //Constructor
@@ -41,6 +46,7 @@ MyVector<T>::MyVector(){
     count = 0;
 }
 template<typename T>
+//returns value on index
 T & MyVector<T>::operator[](int index){
     if(index < 0 || index >= count){
         cout << "!!!!   Index is not correct   !!!!" <<endl;
@@ -48,7 +54,7 @@ T & MyVector<T>::operator[](int index){
     }
     return array[index];
 }
-
+//push value to end of vector
 template<typename T>
 void MyVector<T>::pushBack(T value){
     if (count == Size) {
@@ -57,17 +63,17 @@ void MyVector<T>::pushBack(T value){
     array[count] = value;
     count++;
 }
-
+//clear vector
 template <typename T>
 void MyVector<T>::clear(){
     count = 0;
 }
-
+//return true if vector empty
 template <typename T>
 bool MyVector<T>::isEmpty() const{
     return count == 0;
 }
-
+//remove index in vector
 template <typename T>
 void MyVector<T>::remove(int index){
     if(index < 0 || index >= count){
@@ -79,7 +85,7 @@ void MyVector<T>::remove(int index){
     }
     count--;
 }
-
+//set value by index
 template <typename T>
 void MyVector<T>::set(int index, T value){
     if(index < 0 || index >= count){
@@ -88,12 +94,12 @@ void MyVector<T>::set(int index, T value){
     }
     array[index] = value;
 }
-
+//return size of vector
 template <typename T>
 int MyVector<T>::size() const{
     return count;
 }
-
+//extending vector on its size
 template <typename T>
 void MyVector<T>::extendArray(){
     T *oldArray = array;
