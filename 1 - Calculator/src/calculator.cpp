@@ -50,17 +50,16 @@ void convertToPolishRecord(string expression) {
                 output = output + expression[i];
                 polishRecord.pushBack(output);
                 output = "";
-            }
-            else {
+            }else {
                 output = output + expression[i];
             }
+
             //checking whether open scope (pushing it to stack)
-        }
-        else if (expression[i] == '(') {
+        }else if (expression[i] == '(') {
             operators.push('(');
+
             //checking whether close scope
-        }
-        else if (expression[i] == ')') {
+        }else if (expression[i] == ')') {
             while (operators.top() != '(') {
                 output = output + operators.top();
                 operators.pop();
@@ -69,8 +68,7 @@ void convertToPolishRecord(string expression) {
             }
             operators.pop();
             //compare rate of operator at formula[i] and at the top of the Stack of operators and push it to the vector
-        }
-        else if (isOperator(expression[i])) {
+        }else if (isOperator(expression[i])) {
             while (!operators.empty() && (operandsRate(operators.top()) >= operandsRate(expression[i]))) {
                 output = output + operators.top();
                 operators.pop();
@@ -78,8 +76,7 @@ void convertToPolishRecord(string expression) {
                 output = "";
             }
             operators.push(expression[i]);
-        }
-        else {
+        }else {
             throw "Error incoming data";
         }
     }

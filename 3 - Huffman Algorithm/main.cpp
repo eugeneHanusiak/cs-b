@@ -58,15 +58,15 @@ void makeTree(MyVector<int> frequencies) {
 }
 
 //compressing file to "file".cmp
-void compress(ifstream &f,string s){
+void compress(ifstream &f,string s) {
     //frequencies of leter or symbols
     MyVector<int> frequencies(256);
 
-    for(int i = 0; i < frequencies.size(); i++){
+    for(int i = 0; i < frequencies.size(); i++) {
         frequencies[i] = 0;
     }
     //reading frequencies of symbols//
-    while (!f.eof()){
+    while (!f.eof()) {
         unsigned char c = f.get();
         frequencies[c]++;
     }
