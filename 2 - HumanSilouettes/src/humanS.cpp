@@ -9,6 +9,7 @@
 #include "myqueue.h"
 using namespace std;
 
+const int WHITE = 16777215;
 //shade of Gray color(almost white);
 const int GRAY = 14119285;
 //minimum number of black points to think that is human(depends of the picture)
@@ -18,21 +19,23 @@ int humansCount = 0;
 int neighboursCount = 0;
 
 //check number of balck points at blur
-void checkBlur(GBufferedImage &img,MyQueue<point> &blackPoints ) {
+void checkBlur(GBufferedImage &img, MyQueue<point> &blackPoints ) {
     //if there are not checked black points in queue - take first point in the queue deleting it and searching its neighbours
     while(!blackPoints.isEmpty()) {
         point curr = blackPoints.front();
-        blackPoints.pop();
-        for(int row = curr.row-1; row <= curr.row + 1; row++) {
-            for(int column = curr.col-1; column <= curr.col + 1; column++) {
+        blackPoints.popFront();
+        for(int row = curr.row - 1; row <= curr.row + 1; row++) {
+            for(int column = curr.col - 1; column <= curr.col + 1; column++) {
+
                 if(row <= img.getWidth() & row >= 0 & column <= img.getHeight() & column >= 0) {
                     //if neighbour is black set it color white and add to queue of neighbours
                     if(img.getRGB(row,column) <= GRAY) {
-                        point neighbour = makepoint (row, column);
-                        blackPoints.push_back(neighbour);
+
+                        point neighbour = makePoint (row, column);
+                        blackPoints.pushBack(neighbour);
                         neighboursCount++;
                         //set white color to black point
-                        img.setRGB(row, column,16777215);
+                        img.setRGB(row, column,WHITE);
                     }
                 }
             }
@@ -54,15 +57,16 @@ void searchPeople(GBufferedImage &img) {
     int columns = img.getHeight();
     for(int i = 0; i < rows; i++) {
         for(int j = 0; j < columns; j++) {
+
             if(img.getRGB(i, j) <= GRAY) {
-                point black = makepoint(i, j);
-                blackPoints.push_back(black);
+                point black = makePoint(i, j);
+                blackPoints.pushBack(black);
                 //chek number of black points at blur
                 checkBlur(img,blackPoints);
             }
         }
     }
-    if(humansCount==1) {
+    if(humansCount == 1) {
         cout << "There is about " <<humansCount<< " human on this image." << endl;
     }else {
         cout << "There are about " <<humansCount<< " humans on this image." << endl;

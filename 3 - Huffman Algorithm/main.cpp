@@ -106,7 +106,7 @@ void compress(ifstream &f,string s){
         MyVector<bool> x = table[c];
         //fill bits of char buf by using bitwise "OR" and write it to the file
         for(int n = 0; n < x.size(); n++) {
-            buf = buf | x[n]<<(7-count);
+            buf = buf | x[n] << (7 - count);
             count++;
             //all 8 bits of char buf are filled
             if (count == 8) {
@@ -157,14 +157,14 @@ void decompress(string &s) {
     byte = f.get();
     while(!f.eof()) {
         //read the data byte size and check all its bits and aacording them going by the tree to the last Node in th branch
-        bool b = byte & (1 << (7-count));
+        bool b = byte & (1 << (7 - count));
         if (b) {
             p = p->right;
         }else {
             p = p->left;
         }
         //last Node in current branch its char - write it to the file
-        if (p->left==NULL && p->right==NULL) {
+        if (p->left == NULL && p->right == NULL) {
             unsigned char k = p->c;
             g.put(k);
             p = root;

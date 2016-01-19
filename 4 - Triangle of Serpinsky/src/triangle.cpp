@@ -7,7 +7,7 @@ double SIDE_SIZE = 500; // size of the triangle side at start
 int cycleCount = 8; //number of triangles in triangl (depth of the fractal)
 
 //draw triangle using recursion
-void drawTriangle(GWindow gw, GPoint top, double SIDE_SIZE, int cycleCount){
+void drawTriangle(GWindow gw, GPoint top, double SIDE_SIZE, int cycleCount) {
 
     //formula of the height if triangle
     double height = sqrt(3) * SIDE_SIZE / 2;
@@ -26,7 +26,7 @@ void drawTriangle(GWindow gw, GPoint top, double SIDE_SIZE, int cycleCount){
     gw.drawLine(top,right);
 
     //count of fractal depth(number of triangles in triangle)
-    if(cycleCount != 0){
+    if(cycleCount != 0) {
 
         //cordinates of north tops of the another triangles in the main triangle
         GPoint left(topX - height / 2,topY + height / 2);
@@ -45,9 +45,9 @@ int main() {
     GWindow gw (1000, 600);
 
     //the top point of the main triangle
-    GPoint top(gw.getWidth() / 2,gw.getHeight() / 2-((sqrt(3) * SIDE_SIZE) / 2) / 2);
+    GPoint top(gw.getWidth() / 2,gw.getHeight() / 2 - ((sqrt(3) * SIDE_SIZE) / 2) / 2);
 
     //drawing main triangle
-    drawTriangle (gw,top,SIDE_SIZE,cycleCount);
+    drawTriangle(gw,top,SIDE_SIZE,cycleCount);
     return 0;
 }

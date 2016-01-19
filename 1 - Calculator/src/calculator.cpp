@@ -12,7 +12,7 @@ using namespace std;
 MyVector<string> polishRecord;
 
 // rate of operators
-int operandsRate(const char ch) {
+int operandsRate(char ch) {
     switch (ch) {
     case '^':
         return 3;
@@ -37,7 +37,7 @@ bool isOperator(char ch) {
 }
 
 //writes a Polish record
-void PolishRecord(string expression) {
+void convertToPolishRecord(string expression) {
     //buffer stack that save operators before put them to output
     MyStack<char> operators;
     //buffer string that save numbers and operators before put them to the PolishRecord vector
@@ -143,7 +143,7 @@ int main() {
     //read expression and put it to string formula
     getline(cin,expression);
     //make a polish record
-    PolishRecord(expression);
+    convertToPolishRecord(expression);
     //calculate polish record
     calculate(polishRecord);
 

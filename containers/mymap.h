@@ -5,37 +5,28 @@
 
 template<typename KeyType, typename ValueType>
 //asociative array that stores elemets as key and its value, its structure is represented as a binary search tree
-class myMap{
+class myMap {
 
 public:
 
     //Constructor
     myMap();
-
     //Destructor
     ~myMap();
-
     //Adds a new pair (key and value) to map, if such key is present in the map method changes it's value to new
     void makePair(KeyType, ValueType);
-
     //Returns value of key
     ValueType getKey(KeyType key);
-
     //Returns true if map is empty
     bool isEmpty();
-
     //Removes all elements
     void clear();
-
     //Return number of elements in the map
     int size();
-
     //Remove element of map that contains key
     void remove(KeyType);
-
     //Return true if this key present in the map
     bool hasKey(KeyType key);
-
 private:
 
     // Structure for storing key-value pairs as Binary Search Tree
@@ -46,7 +37,6 @@ private:
         nodeTree* left;
         nodeTree* right;
     };
-
     //Balance the binary tree
     nodeTree* balanceTree(nodeTree* node);
 
@@ -89,22 +79,22 @@ private:
 };
 
 template<typename KeyType, typename ValueType>
-int myMap<KeyType, ValueType>::getNodeHeight(nodeTree *node){
-    if (node != 0){
+int myMap<KeyType, ValueType>::getNodeHeight(nodeTree *node) {
+    if (node != 0) {
         return node->nodeHeight;
     }
     return 0;
 }
 
 template<typename KeyType, typename ValueType>
-int myMap<KeyType, ValueType>::getBalanceFactor(nodeTree *node){
+int myMap<KeyType, ValueType>::getBalanceFactor(nodeTree *node) {
     return getNodeHeight(node->right) - getNodeHeight(node->left);
 }
 
 template<typename KeyType, typename ValueType>
-void myMap<KeyType, ValueType>::fixHeight(nodeTree *node){
+void myMap<KeyType, ValueType>::fixHeight(nodeTree *node) {
     //make +1 ot hight of more higher sub tree
-    if (getNodeHeight(node->left) > getNodeHeight(node->right)){
+    if (getNodeHeight(node->left) > getNodeHeight(node->right)) {
         node->nodeHeight = getNodeHeight(node->left) + 1;
     } else {
         node->nodeHeight = getNodeHeight(node->right) + 1;
@@ -112,7 +102,7 @@ void myMap<KeyType, ValueType>::fixHeight(nodeTree *node){
 }
 
 template<typename KeyType, typename ValueType>
-typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::rotateLeft(nodeTree *node){
+typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::rotateLeft(nodeTree *node) {
     nodeTree* RightSubTree = node->right;
     node->right = RightSubTree->left;
     RightSubTree->left = node;
@@ -123,7 +113,7 @@ typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::rotateL
 
 
 template<typename KeyType, typename ValueType>
-typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::rotateRight(nodeTree *node){
+typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::rotateRight(nodeTree *node) {
     nodeTree* leftSubTree = node->left;
     node->left = leftSubTree->right;
     leftSubTree->right = node;
@@ -133,22 +123,22 @@ typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::rotateR
 }
 
 template<typename KeyType, typename ValueType>
-typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::balanceTree(nodeTree *node){
+typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::balanceTree(nodeTree *node) {
     fixHeight(node);
 
     //if right subtree higher then left on two
-    if (getBalanceFactor(node) == 2){
+    if (getBalanceFactor(node) == 2) {
         //if left subtree higher then right do big left turn
-        if (getBalanceFactor(node->right) < 0){
+        if (getBalanceFactor(node->right) < 0) {
             node->right = rotateRight(node->right);
         }
         //else - do left turn
         return rotateLeft(node);
     }
     //if left subtree higher then right on two
-    if (getBalanceFactor(node) == -2){
+    if (getBalanceFactor(node) == -2) {
         //if right subtree higher then left do big right turn
-        if (getBalanceFactor(node->left) > 0){
+        if (getBalanceFactor(node->left) > 0) {
             node->left = rotateLeft(node->left);
         }
         //else - do simple right turn
@@ -159,7 +149,7 @@ typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::balance
 
 
 template<typename KeyType, typename ValueType>
-typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::insertNode(nodeTree* node, KeyType key, ValueType value){
+typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::insertNode(nodeTree* node, KeyType key, ValueType value) {
     //making new node if its not present in tree
     if (node == NULL) {
         count++;
@@ -169,9 +159,9 @@ typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::insertN
         node->nodeHeight = 1;
         node->right = node->left = 0;
         return node;
-    } else if (key > node->Key){
+    } else if (key > node->Key) {
         node->right = insertNode(node->right, key, value); //going to right sub tree and insert new node using recursion
-    } else if (key < node->Key){
+    } else if (key < node->Key) {
         node->left = insertNode(node->left, key, value); //going to left sub tree and insert new node using recursion
     } else {
         //if node present in tree change it value
@@ -184,7 +174,7 @@ typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::insertN
 
 
 template<typename KeyType, typename ValueType>
-typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::findNode(nodeTree* node, KeyType key){
+typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::findNode(nodeTree* node, KeyType key) {
     if (key > node->Key) {
         //if current key not found in this subtree
         if(node->right == 0) {
@@ -225,7 +215,7 @@ typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::removeN
         delete node;
         count--;
 
-        if (rightNode == 0){
+        if (rightNode == 0) {
             return leftNode;
         }
         //finds minimal node in the right subtree and puts it to the place of deleted node
@@ -240,13 +230,13 @@ typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::removeN
 }
 
 template<typename KeyType, typename ValueType>
-typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::findMinNode(nodeTree *node){
+typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::findMinNode(nodeTree *node) {
     //find min (last left) node using recursion
     return (node->left == NULL) ? node : findMinimum(node->left);
 }
 
 template<typename KeyType, typename ValueType>
-typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::removeMinNode(nodeTree *node){
+typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::removeMinNode(nodeTree *node) {
     if(node->left == 0) {
         //replace min node to its right sub tree
         return node->right;
@@ -256,12 +246,12 @@ typename myMap<KeyType, ValueType>::nodeTree* myMap<KeyType, ValueType>::removeM
 }
 
 template<typename KeyType, typename ValueType>
-void myMap<KeyType, ValueType>::clearTree(nodeTree *node){
+void myMap<KeyType, ValueType>::clearTree(nodeTree *node) {
     //deleting all nodes using recursion
-    if (node->left != 0){
+    if (node->left != 0) {
         clearTree(node->left);
     }
-    if (node->right != 0){
+    if (node->right != 0) {
         clearTree(node->right);
     }
 
@@ -271,25 +261,25 @@ void myMap<KeyType, ValueType>::clearTree(nodeTree *node){
 
 //Constructor
 template<typename KeyType, typename ValueType>
-myMap<KeyType, ValueType>::myMap(){
+myMap<KeyType, ValueType>::myMap() {
     root = 0;
     count = 0;
 }
 //Destructor
 template<typename KeyType, typename ValueType>
-myMap<KeyType, ValueType>::~myMap(){
+myMap<KeyType, ValueType>::~myMap() {
     clearTree(root);
 }
 
 template<typename KeyType, typename ValueType>
-void myMap<KeyType, ValueType>::makePair(KeyType key, ValueType value){
+void myMap<KeyType, ValueType>::makePair(KeyType key, ValueType value) {
     root = insertNode(root, key, value);
 }
 
 template<typename KeyType, typename ValueType>
-ValueType myMap<KeyType, ValueType>::getKey(KeyType key){
+ValueType myMap<KeyType, ValueType>::getKey(KeyType key) {
     nodeTree* result = findNode(root, key);
-    if (result == 0){
+    if (result == 0) {
         std::cout << "Key not found!!!" << std::endl;
         exit(1);
     }
@@ -298,12 +288,12 @@ ValueType myMap<KeyType, ValueType>::getKey(KeyType key){
 }
 
 template<typename KeyType, typename ValueType>
-int myMap<KeyType, ValueType>::size(){
+int myMap<KeyType, ValueType>::size() {
     return count;
 }
 
 template<typename KeyType, typename ValueType>
-void myMap<KeyType, ValueType>::remove(KeyType key){
+void myMap<KeyType, ValueType>::remove(KeyType key) {
     nodeTree* result = removeNode(root, key);
     if (result == 0) {
         std::cout << "Key not found!!!" << std::endl;
@@ -313,19 +303,19 @@ void myMap<KeyType, ValueType>::remove(KeyType key){
 }
 
 template<typename KeyType, typename ValueType>
-bool myMap<KeyType, ValueType>::isEmpty(){
+bool myMap<KeyType, ValueType>::isEmpty() {
     return count == 0;
 }
 
 template<typename KeyType, typename ValueType>
-void myMap<KeyType, ValueType>::clear(){
+void myMap<KeyType, ValueType>::clear() {
     clearTree(root);
     count = 0;
     root = 0;
 }
 
 template<typename KeyType, typename ValueType>
-bool myMap<KeyType, ValueType>::hasKey(KeyType key){
+bool myMap<KeyType, ValueType>::hasKey(KeyType key) {
     return findNode(root, key) != 0;
 }
 
