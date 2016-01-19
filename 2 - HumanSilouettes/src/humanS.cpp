@@ -42,7 +42,7 @@ void checkBlur(GBufferedImage &img, MyQueue<point> &blackPoints ) {
         }
     }
     //if queue is empty(all neighbours is checked) and blur has neighbours more than minNumPoint we assume that this man
-    if(blackPoints.isEmpty() && neighboursCount > minNumNeighbours ){
+    if(blackPoints.isEmpty() && neighboursCount > minNumNeighbours ) {
         humansCount++;
         neighboursCount = 0;
     } else {

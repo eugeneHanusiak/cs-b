@@ -4,7 +4,7 @@
 using namespace std;
 
 template<typename T>
-class MyVector{
+class MyVector {
 
 public:
     MyVector();

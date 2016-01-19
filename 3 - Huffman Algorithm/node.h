@@ -11,7 +11,7 @@ public:
     int size;
     Node *left, *right;
     Node() {
-        left=right=NULL;
+        left = right = NULL;
     }
     Node(int some,unsigned char som,int s) {
         f = some;

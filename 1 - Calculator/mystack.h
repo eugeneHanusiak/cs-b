@@ -78,7 +78,7 @@ T& MyStack<T>::top(){
         cout << "!!!!   Stack is empty   !!!!" <<endl;
         exit(1);
     }
-    return array[count-1];
+    return array[count - 1];
 }
 
 //Check the stack is empty

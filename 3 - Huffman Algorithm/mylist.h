@@ -244,20 +244,16 @@ void MyList<T>::sort() {
         cerr << "Can't 'insert'. The list is empty." << endl;
         exit(0);
     }
-    if (head != 0)
-    {
+    if (head != 0) {
         Node* current = head;
         Node* prev = 0;
         Node* tempNode = 0;
         int changeFlag = 0;
-        for (int i = 0; i < size(); i++)
-        {
-            while (current->next != 0)
-            {
+        for (int i = 0; i < size(); i++) {
+            while (current->next != 0) {
                 tempNode = current->next;
 
-                if (current->data->f > tempNode->data->f)
-                {
+                if (current->data->f > tempNode->data->f) {
                     changeFlag = 1;
                     current->next = tempNode->next;
                     tempNode->next = current;
@@ -268,17 +264,14 @@ void MyList<T>::sort() {
                         head = tempNode;
                     if (current->next == 0)
                         tail = current;
-                }
-                else
-                {
+                }else {
                     prev = current;
                     current = current->next;
                 }
             }
-            if (changeFlag == 0)
+            if (changeFlag == 0) {
                 break;
-            else
-            {
+            }else {
                 prev = 0;
                 current = head;
                 changeFlag = 0;

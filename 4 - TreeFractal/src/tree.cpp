@@ -18,9 +18,9 @@ void drawFractal(GWindow gw,GPoint root,double SIDE_SIZE,int cycleCount,double t
 
     //drawing polar lines of the main polar line by using recursion
     if(cycleCount >= 0) {
-        drawFractal(gw,top,SIDE_SIZE / 1.3,cycleCount-1, theta - 30);
-        drawFractal(gw,top,SIDE_SIZE / 1.3,cycleCount-1, theta);
-        drawFractal(gw,top,SIDE_SIZE / 1.3,cycleCount-1, theta + 30);
+        drawFractal(gw,top,SIDE_SIZE / 1.3,cycleCount - 1, theta - 30);
+        drawFractal(gw,top,SIDE_SIZE / 1.3,cycleCount - 1, theta);
+        drawFractal(gw,top,SIDE_SIZE / 1.3,cycleCount - 1, theta + 30);
     }
 }
 
