@@ -37,7 +37,7 @@ private:
     static const int initSize = 2;
     void extendArray();
 };
-//Constructor
+//constructor
 template<typename T>
 myVector<T>::myVector() {
     array = new T[initSize];
@@ -121,7 +121,7 @@ void myVector<T>::extendArray() {
     }
     delete[] oldArray;
 }
-//Copy constructor
+//copy constructor
 template<typename T>
 myVector<T>::myVector(const myVector<T> & src) {
     this->array = new T[src.Size];

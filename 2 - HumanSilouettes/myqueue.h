@@ -33,14 +33,14 @@ public:
     void clear();
 };
 
-//Constructor
+//constructor
 template <typename T>
 myQueue<T>::myQueue() {
     head = tail = NULL;
     count = 0;
 }
 
-//Copy-constructor
+//copy-constructor
 template <typename T>
 myQueue<T>::myQueue(const myQueue<T>& otherQueue) {
     if (!otherQueue.isEmpty()) {
@@ -54,13 +54,13 @@ myQueue<T>::myQueue(const myQueue<T>& otherQueue) {
         exit(0);
     }
 }
-//Destructor
+//destructor
 template <typename T>
 myQueue<T>::~myQueue() {
     clear();
 }
 
-//Add element to the end of Queue
+//add element to the end of Queue
 template <typename T>
 void myQueue<T>::pushBack(const T& value) {
     Node *n = new Node;
@@ -76,7 +76,7 @@ void myQueue<T>::pushBack(const T& value) {
     count++;
 }
 
-//Delete the first element from the Queue
+//delete the first element from the Queue
 template <typename T>
 void myQueue<T>::popFront() {
     if (isEmpty()) {
@@ -92,19 +92,19 @@ void myQueue<T>::popFront() {
     }
 }
 
-//Check the Queue is empty
+//check the Queue is empty
 template <typename T>
 bool myQueue<T>::isEmpty() {
     return count == 0;
 }
 
-//Return number of elements of the Queue
+//return number of elements of the Queue
 template <typename T>
 int myQueue<T>::size() {
     return count;
 }
 
-//Return first element in the Queue
+//return first element in the Queue
 template <typename T>
 T& myQueue<T>::front() {
     if (isEmpty()) {
@@ -114,7 +114,7 @@ T& myQueue<T>::front() {
     return head->data;
 }
 
-//Return last element in the Queue
+//return last element in the Queue
 template <typename T>
 T& myQueue<T>::back() {
     if (isEmpty()) {
@@ -124,7 +124,7 @@ T& myQueue<T>::back() {
     return tail->data;
 }
 
-//Delete all elements of the Queue(clear Queue)
+//delete all elements of the Queue(clear Queue)
 template <typename T>
 void myQueue<T>::clear() {
     while (head != NULL) {

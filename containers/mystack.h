@@ -22,7 +22,7 @@ public:
     int size();
 };
 
-//Constructor
+//constructor
 template <typename T>
 MyStack<T>::MyStack(int size) {
     if(size <= 0){
@@ -34,7 +34,7 @@ MyStack<T>::MyStack(int size) {
     count = 0;
 }
 
-//Copy constructor
+//copy constructor
 template <typename T>
 MyStack<T>::MyStack(const MyStack<T>& otherStack) {
     capacity = otherStack.capacity;
@@ -45,13 +45,13 @@ MyStack<T>::MyStack(const MyStack<T>& otherStack) {
     }
 }
 
-//Destructor
+//destructor
 template <typename T>
 MyStack<T>::~MyStack() {
     delete[] array;
 }
 
-//Add element to the top of stack
+//add element to the top of stack
 template <typename T>
 void MyStack<T>::push(const T& value) {
     if(count == capacity ) {
@@ -71,7 +71,7 @@ void MyStack<T>::pop() {
     count--;
 }
 
-//Top element of the stack
+//top element of the stack
 template <typename T>
 T& MyStack<T>::top() {
     if(count == 0) {
@@ -81,13 +81,13 @@ T& MyStack<T>::top() {
     return array[count - 1];
 }
 
-//Check the stack is empty
+//check the stack is empty
 template <typename T>
 bool MyStack<T>::empty() {
     return count == 0;
 }
 
-//The number of elements in the stack
+//the number of elements in the stack
 template <typename T>
 int MyStack<T>::size() {
     return  count;

@@ -39,14 +39,14 @@ public:
     void sort();
 };
 
-/*Constructor*/
+/*constructor*/
 template <typename T>
 MyList<T>::MyList() {
     head = tail = NULL;
     count = 0;
 }
 
-/*Copy-constructor*/
+/*copy-constructor*/
 template <typename T>
 MyList<T>::MyList(const MyList<T>& otherList) {
     if (!otherList.empty()) {
@@ -60,13 +60,13 @@ MyList<T>::MyList(const MyList<T>& otherList) {
         exit(0);
     }
 }
-/*Destructor*/
+/*destructor*/
 template <typename T>
 MyList<T>::~MyList() {
     clear();
 }
 
-/*Add element to the start of list*/
+/*add element to the start of list*/
 template <typename T>
 void MyList<T>::push_front(const T& value) {
     Node *n = new Node;
@@ -84,7 +84,7 @@ void MyList<T>::push_front(const T& value) {
     count++;
 }
 
-/*Add element to the end of list*/
+/*add element to the end of list*/
 template <typename T>
 void MyList<T>::push_back(const T& value) {
     Node *n = new Node;
@@ -102,7 +102,7 @@ void MyList<T>::push_back(const T& value) {
     count++;
 }
 
-/*Delete the first element from the list*/
+/*delete the first element from the list*/
 template <typename T>
 void MyList<T>::pop_front() {
     if (empty()) {
@@ -119,7 +119,7 @@ void MyList<T>::pop_front() {
     }
 }
 
-/*Delete last element from the list*/
+/*delete last element from the list*/
 template <typename T>
 void MyList<T>::pop_back() {
     if (empty()) {
@@ -135,19 +135,19 @@ void MyList<T>::pop_back() {
     }
 }
 
-/*Check the list is empty*/
+/*check the list is empty*/
 template <typename T>
 bool MyList<T>::empty() {
     return count == 0;
 }
 
-/*Return number of elements of the list*/
+/*return number of elements of the list*/
 template <typename T>
 int MyList<T>::size() {
     return count;
 }
 
-/*Return first element in the list*/
+/*return first element in the list*/
 template <typename T>
 T& MyList<T>::front() {
     if (empty()) {
@@ -157,7 +157,7 @@ T& MyList<T>::front() {
     return head->data;
 }
 
-/*Return last element in the list*/
+/*return last element in the list*/
 template <typename T>
 T& MyList<T>::back() {
     if (empty()) {
@@ -167,7 +167,7 @@ T& MyList<T>::back() {
     return tail->data;
 }
 
-/*Pointer to the start of the list*/
+/*pointer to the start of the list*/
 template <typename T>
 typename MyList<T>::iterator MyList<T>::begin() {
     return head;
@@ -179,7 +179,7 @@ typename MyList<T>::iterator MyList<T>::end() {
     return tail;
 }
 
-/*Delete all elements of the list(clear list)*/
+/*delete all elements of the list(clear list)*/
 template <typename T>
 void MyList<T>::clear() {
     while (head) {
@@ -189,7 +189,7 @@ void MyList<T>::clear() {
     count = 0;
 }
 
-/*Insert element to the list in current position using iterator*/
+/*insert element to the list in current position using iterator*/
 template <typename T>
 void MyList<T>::insert(iterator it, const T& value) {
     if (empty()) {
@@ -214,7 +214,7 @@ void MyList<T>::insert(iterator it, const T& value) {
     }
 }
 
-/*Delete element from the list from the current position using iterator*/
+/*delete element from the list from the current position using iterator*/
 template <typename T>
 void MyList<T>::erase(iterator it) {
     if (empty()) {
@@ -238,7 +238,7 @@ void MyList<T>::erase(iterator it) {
     }
 }
 template <typename T>
-/*Sorting elements in list*/
+/*sorting elements in list*/
 void MyList<T>::sort() {
     if (empty()) {
         cerr << "Can't 'insert'. The list is empty." << endl;
@@ -280,4 +280,3 @@ void MyList<T>::sort() {
     }
 }
 #endif // MYLIST
-

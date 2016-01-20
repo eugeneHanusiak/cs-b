@@ -9,27 +9,27 @@ class myMap {
 
 public:
 
-    //Constructor
+    //constructor
     myMap();
-    //Destructor
+    //destructor
     ~myMap();
-    //Adds a new pair (key and value) to map, if such key is present in the map method changes it's value to new
+    //adds a new pair (key and value) to map, if such key is present in the map method changes it's value to new
     void makePair(KeyType, ValueType);
-    //Returns value of key
+    //returns value of key
     ValueType getKey(KeyType key);
-    //Returns true if map is empty
+    //returns true if map is empty
     bool isEmpty();
-    //Removes all elements
+    //removes all elements
     void clear();
-    //Return number of elements in the map
+    //return number of elements in the map
     int size();
-    //Remove element of map that contains key
+    //remove element of map that contains key
     void remove(KeyType);
-    //Return true if this key present in the map
+    //return true if this key present in the map
     bool hasKey(KeyType key);
 private:
 
-    // Structure for storing key-value pairs as Binary Search Tree
+    // structure for storing key-value pairs as Binary Search Tree
     struct nodeTree  {
         KeyType Key;
         ValueType Value;
@@ -37,38 +37,38 @@ private:
         nodeTree* left;
         nodeTree* right;
     };
-    //Balance the binary tree
+    //balance the binary tree
     nodeTree* balanceTree(nodeTree* node);
 
-    // Returns the height of current sub-tree
+    // returns the height of current sub-tree
     int getNodeHeight(nodeTree* node);
 
-    //Return the difference of height of right and left sub-trees
+    //return the difference of height of right and left sub-trees
     int getBalanceFactor(nodeTree* node);
 
-    //Correcting the height of current nod
+    //correcting the height of current nod
     //add 1 to sub tree that higher
     void fixHeight(nodeTree* node);
 
-    //Right turn around current node
+    //right turn around current node
     nodeTree* rotateRight(nodeTree* node);
 
-    //Left turn around a current node
+    //left turn around a current node
     nodeTree* rotateLeft(nodeTree* node);
 
-    //Inserts new node with pair key and value to the tree and balance it
+    //inserts new node with pair key and value to the tree and balance it
     nodeTree* insertNode(nodeTree* node, KeyType key, ValueType value);
 
-    //Deleting node with current key and balance tree
+    //deleting node with current key and balance tree
     nodeTree* removeNode(nodeTree* node, KeyType key);
 
-    //Returns pointer to the last left node
+    //returns pointer to the last left node
     nodeTree* findMinNode(nodeTree* node);
 
-    //Deleting minimal element of current sub-tree
+    //deleting minimal element of current sub-tree
     nodeTree* removeMinNode(nodeTree* node);
 
-    //Returns pointer to node that contains current key
+    //returns pointer to node that contains current key
     nodeTree* findNode(nodeTree* node, KeyType key);
 
     //deleting all nodes in tree
@@ -259,13 +259,13 @@ void myMap<KeyType, ValueType>::clearTree(nodeTree *node) {
 }
 
 
-//Constructor
+//constructor
 template<typename KeyType, typename ValueType>
 myMap<KeyType, ValueType>::myMap() {
     root = 0;
     count = 0;
 }
-//Destructor
+//destructor
 template<typename KeyType, typename ValueType>
 myMap<KeyType, ValueType>::~myMap() {
     clearTree(root);

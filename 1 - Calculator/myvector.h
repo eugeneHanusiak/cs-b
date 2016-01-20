@@ -17,7 +17,7 @@ public:
     void clear();
     //check for empty
     bool isEmpty() const;
-    // Removes value at index int
+    // removes value at index int
     void remove(int);
     //set value T to the index int
     void set(int, T);
@@ -34,7 +34,7 @@ private:
     static const int initSize = 10;
     void extendArray();
 };
-//Constructor
+//constructor
 template<typename T>
 myVector<T>::myVector() {
     array = new T[initSize];
@@ -106,7 +106,7 @@ void myVector<T>::extendArray() {
     }
     delete[] oldArray;
 }
-//Copy constructor
+//copy constructor
 template<typename T>
 myVector<T>::myVector(const myVector<T> & src) {
     this->array = new T[src.Size];
