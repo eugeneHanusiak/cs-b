@@ -10,11 +10,14 @@
 using namespace std;
 
 const int WHITE = 16777215;
-//shade of Gray color(almost white);
-const int GRAY = 14119285;
+
+//max intensity of Red, Green or Blue in pixel to think tha it is black point
+const int maxValue = 50;
+
 //minimum number of black points to think that is human(depends of the picture)
-const int minNumNeighbours = 1000;
+const int minNumNeighbours = 400;
 int humansCount = 0;
+
 //count of black points(neighbours) at blur(human)
 int neighboursCount = 0;
 
@@ -24,12 +27,17 @@ void checkBlur(GBufferedImage &img, MyQueue<point> &blackPoints ) {
     while(!blackPoints.isEmpty()) {
         point curr = blackPoints.front();
         blackPoints.popFront();
+        //buffer RGB color of every point on image
+        int RGB;
         for(int row = curr.row - 1; row <= curr.row + 1; row++) {
             for(int column = curr.col - 1; column <= curr.col + 1; column++) {
 
                 if(row <= img.getWidth() & row >= 0 & column <= img.getHeight() & column >= 0) {
+                    //buffer RGB color of every point on image
+                    RGB = img.getRGB(row,column);
+
                     //if neighbour is black set it color white and add to queue of neighbours
-                    if(img.getRGB(row,column) <= GRAY) {
+                    if(img.getBlue(RGB) <= maxValue & img.getRed(RGB) <= maxValue & img.getGreen(RGB) <= maxValue) {
 
                         point neighbour = makePoint (row, column);
                         blackPoints.pushBack(neighbour);
@@ -55,10 +63,14 @@ void searchPeople(GBufferedImage &img) {
     MyQueue<point> blackPoints;
     int rows = img.getWidth();
     int columns = img.getHeight();
+    //buffer RGB color of every pixel on image
+    int RGB;
     for(int i = 0; i < rows; i++) {
         for(int j = 0; j < columns; j++) {
 
-            if(img.getRGB(i, j) <= GRAY) {
+            RGB = img.getRGB(i,j);
+            //if intensity of each three colors R,G,B < 50 then we can think that its black point
+            if(img.getBlue(RGB) <= maxValue & img.getRed(RGB) <= maxValue & img.getGreen(RGB) <= maxValue) {
                 point black = makePoint(i, j);
                 blackPoints.pushBack(black);
                 //chek number of black points at blur
