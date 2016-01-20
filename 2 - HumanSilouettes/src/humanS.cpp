@@ -11,10 +11,10 @@ using namespace std;
 
 const int WHITE = 16777215;
 
-//max intensity of Red, Green or Blue in pixel to think tha it is black point
+//max intensity of Red, Green or Blue in pixel to think that it is black point
 const int maxValue = 50;
 
-//minimum number of black points to think that is human(depends of the picture)
+//minimum number of black points to think that its human(depends of the picture)
 const int minNumNeighbours = 400;
 
 //get RBG color of pixel on image and return true when intensity of Red, Green and Blue colors in this pixel less than maxValue
@@ -69,7 +69,7 @@ int searchPeople(GBufferedImage &img) {
             if(isBlackPoint(i,j,img)) {
                 point black = makePoint(i, j);
                 blackPoints.pushBack(black);
-                //chek number of black points at blur
+                //check number of black points at blur
                 checkBlur(img,blackPoints,humansCount);
             }
         }
@@ -95,6 +95,5 @@ int main() {
     }else {
         cout << "There are about " <<humansCount<< " humans on this image." << endl;
     }
-
     return 0;
 }

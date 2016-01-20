@@ -33,11 +33,11 @@ bool isOperator(char ch) {
     return (ch == '+' || ch == '-' || ch == '/' || ch == '*' || ch == '^');
 }
 
-//writes a Polish record
-void convertToPolishRecord(string expression,myVector<string> &polishRecord) {
-    //buffer stack that save operators before put them to output
+//convert expression to Polish record
+void convertToPolishRecord(string expression, myVector<string> &polishRecord) {
+    //buffer stack that store operators before put them to output
     myStack<char> operators;
-    //buffer string that save numbers and operators before put them to the PolishRecord vector
+    //buffer string that store numbers and operators before put them to the PolishRecord vector
     string output("");
     for (int i = 0; i < expression.length(); ++i) {
         // checking whether formual[i] is number or "-" on first position or first "-" in the scope
@@ -89,13 +89,13 @@ void convertToPolishRecord(string expression,myVector<string> &polishRecord) {
 //reading polish record and calculate it
 double calculate(myVector<string>& polishRecord) {
     /* buffer stack of operands where we push two operands that we met in record
-    and then using this operand when met in record operator */
+    and then using this operands when met in record operator */
     myStack<double> operands;
     for (int i = 0; i < polishRecord.size(); i++) {
         if (isNumber(polishRecord[i][0])) {
-            //if token is number convert string to double and push it to stack operands
+            //if is number - convert string to double and push it to stack operands
             operands.push(stod(polishRecord[i]));
-            //if token is operator -  make action that means this operator with two first numbers in operands stack
+            //its operator -  make action that means this operator with two first numbers in operands stack
         }else {
             char t = polishRecord[i][0];
             double one = operands.top();
@@ -134,7 +134,7 @@ int main() {
     cout << "Enter your expression: " << endl;
     //read expression and put it to string formula
     getline(cin,expression);
-    //in this vector i will save polish record of formula
+    //in this vector i will store polish record of formula
     myVector<string> polishRecord;
     //make a polish record
     convertToPolishRecord(expression,polishRecord);

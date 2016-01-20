@@ -77,7 +77,7 @@ string compress(ifstream &f,string s) {
     //making a binary code of each symbol or character and put in to the table
     buildTable(root,table,code);
 
-    // going to the start o file
+    // going to the start of file
     f.clear(); f.seekg(0);
 
     //writing the name of file with "cmp"
@@ -143,7 +143,7 @@ void decompress(string &s) {
     //output stream
     ofstream g(file.c_str());
 
-    //the size of our vector of freequencies
+    //the size of vector of freequencies
     int treeSize;
     f.read((char*) &treeSize, sizeof (treeSize));
 
