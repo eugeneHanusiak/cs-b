@@ -81,17 +81,14 @@ string compress(ifstream &f,string s) {
     f.clear(); f.seekg(0);
 
     //writing the name of file with "cmp"
-    string name = s.substr(0, s.length() - 3);
-    name = name + "cmp";
+    string name = s.substr(0, s.length() - 3) + "cmp";
     ofstream g(name.c_str(), ios::binary);
 
     //writing format of the "file" to the output file
-    char a = s[s.length() - 3];
-    char b = s[s.length() - 2];
-    char c = s[s.length() - 1];
-    g.write((char*) &a,sizeof(a));
-    g.write((char*) &b,sizeof(b));
-    g.write((char*) &c,sizeof(c));
+    string cmp = s.substr(s.length() - 3, s.length());
+    for(int i = 0; i < cmp.length(); i++) {
+        g.write((char*) &cmp[i], sizeof(cmp[i]));
+    }
 
     // write to the file tree's size for future reading it from file
     int treeSize = frequencies.size();
@@ -128,20 +125,18 @@ string compress(ifstream &f,string s) {
 //decompressing "file"
 void decompress(string &s) {
     ifstream f(s.c_str(), ios::binary);
-    //name of file without "cmp"
-    string file = s.substr(0,s.length() - 3);
+    //name of compressed file
+    string file = s;
+
+    //read start format of the file in compressed file and replace "cmp" in name of compresse file
+    for(int i = file.length() - 3; i < file.length(); i++) {
+        f.read((char*) &file[i], sizeof(file[i]));
+    }
+    //output stream
+    ofstream g(file.c_str());
 
     //vector of frequencies
     myVector<int> frequencies(256);
-
-    //read start format of the file in compressed file
-    char a,b,c;
-    f.read((char*) &a,sizeof(a));
-    f.read((char*) &b,sizeof(b));
-    f.read((char*) &c,sizeof(c));
-    file = file + a + b + c;
-    //output stream
-    ofstream g(file.c_str());
 
     //the size of vector of freequencies
     int treeSize;
