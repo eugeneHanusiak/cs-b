@@ -5,24 +5,19 @@
 #include "myvector.h"
 using namespace std;
 
-//Huffmans tree
-MyList<Node*> tree;
-//buffer vector that waill store binary code of each letter or symbol
-MyVector<bool> code;
-//letter or symbol and its binary huffmann code
-MyVector<MyVector<bool> > table(256);
 
-//method makes the table of the every character and its code using the huffmans tree
-void buildTable(Node *root) {
-    //if current Node has left son pushin to code '0' and going to the left branch using recursion
+//method makes the table of every character and its code using the huffmans tree
+void buildTable(Node *root, MyVector<MyVector<bool> > &table, MyVector<bool> &code) {
+
+    //if current Node has left son pushing to code '0' and going to the left branch using recursion
     if (root->left != NULL) {
         code.pushBack(0);
-        buildTable(root->left);
+        buildTable(root->left,table,code);
     }
     //if current Node has not left son but has right pushing to code '1' and going to the right using recursion
     if (root->right != NULL) {
         code.pushBack(1);
-        buildTable(root->right);
+        buildTable(root->right,table,code);
     }
     //If current Node has no sons - pushing code to table cell that matches character in this Node
     if (root->left == NULL && root->right == NULL) {
@@ -30,9 +25,11 @@ void buildTable(Node *root) {
     }
     //remove last symbol in code because recursion going to previous Node(branch)
     code.PopBack();
+
 }
+
 //make a tree according to huffman algorithm
-void makeTree(MyVector<int> frequencies) {
+void makeTree(MyVector<int> frequencies, MyList<Node*> &tree) {
 
     // make a list of start nodes of tree
     for(int i(0); i < frequencies.size(); i++) {
@@ -51,27 +48,34 @@ void makeTree(MyVector<int> frequencies) {
         Node *parent = new Node(SonL,SonR);
         tree.push_back(parent);
     }
-    Node *root = tree.front();   //the root of the tree
-
-    //makin a binary code of each symbol or character and put in to the table
-    buildTable(root);
 }
 
 //compressing file to "file".cmp
-void compress(ifstream &f,string s) {
-    //frequencies of leter or symbols
-    MyVector<int> frequencies(256);
+string compress(ifstream &f,string s) {
 
+    //frequencies of letters or symbols
+    MyVector<int> frequencies(256);
     for(int i = 0; i < frequencies.size(); i++) {
         frequencies[i] = 0;
     }
-    //reading frequencies of symbols//
+    //reading frequencies of symbols
     while (!f.eof()) {
         unsigned char c = f.get();
         frequencies[c]++;
     }
+
     //make a tree of huffman
-    makeTree(frequencies);
+    MyList<Node*> tree;
+    makeTree(frequencies,tree);
+
+    Node *root = tree.front();   //the root of the tree
+
+    //this vector stores binary code of each symbol or character
+    MyVector<MyVector<bool> > table(256);
+    //buffer vector that will store binary code of each letter or symbol
+    MyVector<bool> code;
+    //making a binary code of each symbol or character and put in to the table
+    buildTable(root,table,code);
 
     // going to the start o file
     f.clear(); f.seekg(0);
@@ -118,7 +122,7 @@ void compress(ifstream &f,string s) {
     }
     f.close();
     g.close();
-    cout<<"File succssesfully compressed to "<<name<<"!!!"<<endl;
+    return name;
 }
 
 //decompressing "file"
@@ -130,7 +134,7 @@ void decompress(string &s) {
     //vector of frequencies
     MyVector<int> frequencies(256);
 
-    //read star format of the file in compressed file
+    //read start format of the file in compressed file
     char a,b,c;
     f.read((char*) &a,sizeof(a));
     f.read((char*) &b,sizeof(b));
@@ -148,7 +152,8 @@ void decompress(string &s) {
         f.read((char*) &frequencies[i], sizeof (frequencies[i]));
     }
     //makes a tree
-    makeTree(frequencies);
+    MyList<Node*> tree;
+    makeTree(frequencies,tree);
     //takes the root of the tree
     Node *root = tree.front();
     int count = 0;
@@ -156,7 +161,7 @@ void decompress(string &s) {
     unsigned char byte;
     byte = f.get();
     while(!f.eof()) {
-        //read the data byte size and check all its bits and aacording them going by the tree to the last Node in th branch
+        //read the data byte size and check all its bits and aacording them going by the tree to the last Node in this branch
         bool b = byte & (1 << (7 - count));
         if (b) {
             p = p->right;
@@ -177,7 +182,6 @@ void decompress(string &s) {
     }
     f.close();
     g.close();
-    cout<<"File succssesfully decompressed!"<<endl;
 }
 
 int main(){
@@ -197,9 +201,10 @@ int main(){
     getline(cin,cmd);
     if(cmd == "compress") {
         compress(f,fileName);
+        cout<<"File succssesfully compressed to "<<fileName.substr(0, fileName.length() - 3)<<"cmp !!!"<<endl;
     }else if(cmd == "decompress") {
         decompress(fileName);
-
+        cout<<"File succssesfully decompressed!"<<endl;
     }else {
         cout<<"To compress file - enter 'compress'     to decompress - 'decompress' "<<endl;
     }

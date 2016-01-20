@@ -16,20 +16,18 @@ const int maxValue = 50;
 
 //minimum number of black points to think that is human(depends of the picture)
 const int minNumNeighbours = 400;
-int humansCount = 0;
-
-//count of black points(neighbours) at blur(human)
-int neighboursCount = 0;
 
 //Get RBG color of pixel on image and return true when intensity of Red, Green and Blue colors in this pixel less than maxValue
 boolean isBlackPoint(int row,int col,GBufferedImage &img) {
     //gets GRB color of pixel
-    int RGB = img.getRGB(row,col);
-    return (img.getBlue(RGB) <= maxValue & img.getRed(RGB) <= maxValue & img.getGreen(RGB) <= maxValue);
+    int rgb = img.getRGB(row,col);
+    return (img.getBlue(rgb) <= maxValue & img.getRed(rgb) <= maxValue & img.getGreen(rgb) <= maxValue);
 }
 
 //check number of balck points at blur
-void checkBlur(GBufferedImage &img, MyQueue<point> &blackPoints ) {
+void checkBlur(GBufferedImage &img, MyQueue<point> &blackPoints,int &humansCount) {
+    //count of black points(neighbours) at blur(human)
+    int neighboursCount = 0;
     //if there are not checked black points in queue - take first point in the queue deleting it and searching its neighbours
     while(!blackPoints.isEmpty()) {
         point curr = blackPoints.front();
@@ -55,15 +53,13 @@ void checkBlur(GBufferedImage &img, MyQueue<point> &blackPoints ) {
     //if queue is empty(all neighbours is checked) and blur has neighbours more than minNumPoint we assume that this man
     if(blackPoints.isEmpty() && neighboursCount > minNumNeighbours ) {
         humansCount++;
-        neighboursCount = 0;
-    } else {
-        neighboursCount = 0;
     }
 }
 //searching black blures
-void searchPeople(GBufferedImage &img) {
+int searchPeople(GBufferedImage &img) {
     // array of black points (neighbours) on blur
     MyQueue<point> blackPoints;
+    int humansCount = 0;
     int rows = img.getWidth();
     int columns = img.getHeight();
 
@@ -74,15 +70,11 @@ void searchPeople(GBufferedImage &img) {
                 point black = makePoint(i, j);
                 blackPoints.pushBack(black);
                 //chek number of black points at blur
-                checkBlur(img,blackPoints);
+                checkBlur(img,blackPoints,humansCount);
             }
         }
     }
-    if(humansCount == 1) {
-        cout << "There is about " <<humansCount<< " human on this image." << endl;
-    }else {
-        cout << "There are about " <<humansCount<< " humans on this image." << endl;
-    }
+    return humansCount;
 }
 
 int main() {
@@ -96,6 +88,13 @@ int main() {
     w.setCanvasSize(img.getWidth(),img.getHeight());
     w.add(&img);
     //searching black blures on image
-    searchPeople(img);
+    double humansCount = searchPeople(img);
+
+    if(humansCount == 1) {
+        cout << "There is about " <<humansCount<< " human on this image." << endl;
+    }else {
+        cout << "There are about " <<humansCount<< " humans on this image." << endl;
+    }
+
     return 0;
 }

@@ -8,9 +8,6 @@
 
 using namespace std;
 
-//in this vector i will save polish record of formula
-MyVector<string> polishRecord;
-
 // rate of operators
 int operandsRate(char ch) {
     switch (ch) {
@@ -37,7 +34,7 @@ bool isOperator(char ch) {
 }
 
 //writes a Polish record
-void convertToPolishRecord(string expression) {
+void convertToPolishRecord(string expression,MyVector<string> &polishRecord) {
     //buffer stack that save operators before put them to output
     MyStack<char> operators;
     //buffer string that save numbers and operators before put them to the PolishRecord vector
@@ -90,17 +87,16 @@ void convertToPolishRecord(string expression) {
 }
 
 //reading polish record and calculate it
-void calculate(MyVector<string>& polishRecord) {
-    /* buffer stack of operands where we push two operand that we met in record
+double calculate(MyVector<string>& polishRecord) {
+    /* buffer stack of operands where we push two operands that we met in record
     and then using this operand when met in record operator */
     MyStack<double> operands;
     for (int i = 0; i < polishRecord.size(); i++) {
         if (isNumber(polishRecord[i][0])) {
             //if token is number convert string to double and push it to stack operands
             operands.push(stod(polishRecord[i]));
-        }
         //if token is operator -  make action that means this operator with two first numbers in operands stack
-        else if (isOperator(polishRecord[i][0])) {
+        }else {
             char t = polishRecord[i][0];
             double one = operands.top();
             operands.pop();
@@ -129,8 +125,7 @@ void calculate(MyVector<string>& polishRecord) {
         }
     }
     //when cycle finished all operators where used and in operands stack where one number(result of expression)
-    double result = operands.top();
-    cout<<result<<endl;
+    return operands.top();
 }
 
 int main() {
@@ -139,10 +134,13 @@ int main() {
     cout << "Enter your expression: " << endl;
     //read expression and put it to string formula
     getline(cin,expression);
+    //in this vector i will save polish record of formula
+    MyVector<string> polishRecord;
     //make a polish record
-    convertToPolishRecord(expression);
+    convertToPolishRecord(expression,polishRecord);
     //calculate polish record
-    calculate(polishRecord);
+    double result = calculate(polishRecord);
+    cout<<"Answer is "<<result;
 
     return 0;
 }
