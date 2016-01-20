@@ -51,7 +51,7 @@ void makeTree(myVector<int> frequencies, myList<Node*> &tree) {
 }
 
 //compressing file to "file".cmp
-string compress(ifstream &f,string s) {
+void compress(ifstream &f,string s) {
 
     //frequencies of letters or symbols
     myVector<int> frequencies(256);
@@ -119,7 +119,6 @@ string compress(ifstream &f,string s) {
     }
     f.close();
     g.close();
-    return name;
 }
 
 //decompressing "file"
