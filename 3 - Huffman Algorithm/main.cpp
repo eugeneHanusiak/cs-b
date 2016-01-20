@@ -7,7 +7,7 @@ using namespace std;
 
 
 //method makes the table of every character and its code using the huffmans tree
-void buildTable(Node *root, MyVector<MyVector<bool> > &table, MyVector<bool> &code) {
+void buildTable(Node *root, myVector<myVector<bool> > &table, myVector<bool> &code) {
 
     //if current Node has left son pushing to code '0' and going to the left branch using recursion
     if (root->left != NULL) {
@@ -19,7 +19,7 @@ void buildTable(Node *root, MyVector<MyVector<bool> > &table, MyVector<bool> &co
         code.pushBack(1);
         buildTable(root->right,table,code);
     }
-    //If current Node has no sons - pushing code to table cell that matches character in this Node
+    //if current Node has no sons - pushing code to table cell that matches character in this Node
     if (root->left == NULL && root->right == NULL) {
         table[int(root->c)] = code;
     }
@@ -29,7 +29,7 @@ void buildTable(Node *root, MyVector<MyVector<bool> > &table, MyVector<bool> &co
 }
 
 //make a tree according to huffman algorithm
-void makeTree(MyVector<int> frequencies, MyList<Node*> &tree) {
+void makeTree(myVector<int> frequencies, myList<Node*> &tree) {
 
     // make a list of start nodes of tree
     for(int i(0); i < frequencies.size(); i++) {
@@ -54,7 +54,7 @@ void makeTree(MyVector<int> frequencies, MyList<Node*> &tree) {
 string compress(ifstream &f,string s) {
 
     //frequencies of letters or symbols
-    MyVector<int> frequencies(256);
+    myVector<int> frequencies(256);
     for(int i = 0; i < frequencies.size(); i++) {
         frequencies[i] = 0;
     }
@@ -65,15 +65,15 @@ string compress(ifstream &f,string s) {
     }
 
     //make a tree of huffman
-    MyList<Node*> tree;
+    myList<Node*> tree;
     makeTree(frequencies,tree);
 
     Node *root = tree.front();   //the root of the tree
 
     //this vector stores binary code of each symbol or character
-    MyVector<MyVector<bool> > table(256);
+    myVector<myVector<bool> > table(256);
     //buffer vector that will store binary code of each letter or symbol
-    MyVector<bool> code;
+    myVector<bool> code;
     //making a binary code of each symbol or character and put in to the table
     buildTable(root,table,code);
 
@@ -107,7 +107,7 @@ string compress(ifstream &f,string s) {
 
     while (!f.eof()) {
         unsigned char c = f.get();
-        MyVector<bool> x = table[c];
+        myVector<bool> x = table[c];
         //fill bits of char buf by using bitwise "OR" and write it to the file
         for(int n = 0; n < x.size(); n++) {
             buf = buf | x[n] << (7 - count);
@@ -132,7 +132,7 @@ void decompress(string &s) {
     string file = s.substr(0,s.length() - 3);
 
     //vector of frequencies
-    MyVector<int> frequencies(256);
+    myVector<int> frequencies(256);
 
     //read start format of the file in compressed file
     char a,b,c;
@@ -152,7 +152,7 @@ void decompress(string &s) {
         f.read((char*) &frequencies[i], sizeof (frequencies[i]));
     }
     //makes a tree
-    MyList<Node*> tree;
+    myList<Node*> tree;
     makeTree(frequencies,tree);
     //takes the root of the tree
     Node *root = tree.front();

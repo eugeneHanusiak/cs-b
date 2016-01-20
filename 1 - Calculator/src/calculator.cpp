@@ -34,9 +34,9 @@ bool isOperator(char ch) {
 }
 
 //writes a Polish record
-void convertToPolishRecord(string expression,MyVector<string> &polishRecord) {
+void convertToPolishRecord(string expression,myVector<string> &polishRecord) {
     //buffer stack that save operators before put them to output
-    MyStack<char> operators;
+    myStack<char> operators;
     //buffer string that save numbers and operators before put them to the PolishRecord vector
     string output("");
     for (int i = 0; i < expression.length(); ++i) {
@@ -87,15 +87,15 @@ void convertToPolishRecord(string expression,MyVector<string> &polishRecord) {
 }
 
 //reading polish record and calculate it
-double calculate(MyVector<string>& polishRecord) {
+double calculate(myVector<string>& polishRecord) {
     /* buffer stack of operands where we push two operands that we met in record
     and then using this operand when met in record operator */
-    MyStack<double> operands;
+    myStack<double> operands;
     for (int i = 0; i < polishRecord.size(); i++) {
         if (isNumber(polishRecord[i][0])) {
             //if token is number convert string to double and push it to stack operands
             operands.push(stod(polishRecord[i]));
-        //if token is operator -  make action that means this operator with two first numbers in operands stack
+            //if token is operator -  make action that means this operator with two first numbers in operands stack
         }else {
             char t = polishRecord[i][0];
             double one = operands.top();
@@ -135,7 +135,7 @@ int main() {
     //read expression and put it to string formula
     getline(cin,expression);
     //in this vector i will save polish record of formula
-    MyVector<string> polishRecord;
+    myVector<string> polishRecord;
     //make a polish record
     convertToPolishRecord(expression,polishRecord);
     //calculate polish record

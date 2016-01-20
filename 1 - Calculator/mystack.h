@@ -5,16 +5,16 @@ using namespace std;
 
 template <typename T>
 
-class MyStack {
+class myStack {
 private:
     int count; //index of element
     int capacity; //capacity of the stack
     T *array;// pointer to array where we will save data
     void doubleCapacity();//stack capacity increases twice
 public:
-    MyStack(int = 10);//default capacity of stack
-    MyStack(const MyStack<T> &);
-    ~MyStack();
+    myStack(int = 10);//default capacity of stack
+    myStack(const myStack<T> &);
+    ~myStack();
     void push(const T&);
     void pop();
     T& top();
@@ -24,7 +24,7 @@ public:
 
 //Constructor
 template <typename T>
-MyStack<T>::MyStack(int size){
+myStack<T>::myStack(int size){
     if(size <= 0){
         cout << "!!!!   Incorrect size of the stack     !!!!" << endl;
         exit(1);
@@ -36,7 +36,7 @@ MyStack<T>::MyStack(int size){
 
 //Copy constructor
 template <typename T>
-MyStack<T>::MyStack(const MyStack<T>& otherStack){
+myStack<T>::myStack(const myStack<T>& otherStack){
     capacity = otherStack.capacity;
     array = new T[capacity];
     count = otherStack.count;
@@ -47,13 +47,13 @@ MyStack<T>::MyStack(const MyStack<T>& otherStack){
 
 //Destructor
 template <typename T>
-MyStack<T>::~MyStack(){
+myStack<T>::~myStack(){
     delete[] array;
 }
 
 //Add element to the top of stack
 template <typename T>
-void MyStack<T>::push(const T& value){
+void myStack<T>::push(const T& value){
     if(count == capacity ) {
         doubleCapacity();
     }
@@ -63,7 +63,7 @@ void MyStack<T>::push(const T& value){
 
 //delete top element from the stack
 template <typename T>
-void MyStack<T>::pop(){
+void myStack<T>::pop(){
     if(count == 0){
         cout << "!!!!   Stack is empty   !!!!" << endl;
         exit(1);
@@ -73,7 +73,7 @@ void MyStack<T>::pop(){
 
 //Top element of the stack
 template <typename T>
-T& MyStack<T>::top(){
+T& myStack<T>::top(){
     if(count == 0){
         cout << "!!!!   Stack is empty   !!!!" <<endl;
         exit(1);
@@ -83,19 +83,19 @@ T& MyStack<T>::top(){
 
 //Check the stack is empty
 template <typename T>
-bool MyStack<T>::empty(){
+bool myStack<T>::empty(){
     return count == 0;
 }
 
 //The number of elements in the stack
 template <typename T>
-int MyStack<T>::size(){
+int myStack<T>::size(){
     return  count;
 }
 
 //stack capacity increases twice
 template <typename T>
-void MyStack<T>::doubleCapacity() {
+void myStack<T>::doubleCapacity() {
     T* tempArray = array;
     capacity *= 2;
     array = new T[capacity];

@@ -17,7 +17,7 @@ const int maxValue = 50;
 //minimum number of black points to think that is human(depends of the picture)
 const int minNumNeighbours = 400;
 
-//Get RBG color of pixel on image and return true when intensity of Red, Green and Blue colors in this pixel less than maxValue
+//get RBG color of pixel on image and return true when intensity of Red, Green and Blue colors in this pixel less than maxValue
 boolean isBlackPoint(int row,int col,GBufferedImage &img) {
     //gets GRB color of pixel
     int rgb = img.getRGB(row,col);
@@ -25,7 +25,7 @@ boolean isBlackPoint(int row,int col,GBufferedImage &img) {
 }
 
 //check number of balck points at blur
-void checkBlur(GBufferedImage &img, MyQueue<point> &blackPoints,int &humansCount) {
+void checkBlur(GBufferedImage &img, myQueue<point> &blackPoints,int &humansCount) {
     //count of black points(neighbours) at blur(human)
     int neighboursCount = 0;
     //if there are not checked black points in queue - take first point in the queue deleting it and searching its neighbours
@@ -58,7 +58,7 @@ void checkBlur(GBufferedImage &img, MyQueue<point> &blackPoints,int &humansCount
 //searching black blures
 int searchPeople(GBufferedImage &img) {
     // array of black points (neighbours) on blur
-    MyQueue<point> blackPoints;
+    myQueue<point> blackPoints;
     int humansCount = 0;
     int rows = img.getWidth();
     int columns = img.getHeight();

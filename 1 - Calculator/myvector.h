@@ -4,13 +4,13 @@
 using namespace std;
 
 template<typename T>
-class MyVector {
+class myVector {
 
 public:
-    MyVector();
-    MyVector(const MyVector<T> & src);
-    MyVector<T> & operator=(const MyVector<T> & src);
-    ~MyVector();
+    myVector();
+    myVector(const myVector<T> & src);
+    myVector<T> & operator=(const myVector<T> & src);
+    ~myVector();
     //adds T value to the end of vector
     void pushBack(T);
     //reset count of elements in array to zero(clear array)
@@ -36,13 +36,13 @@ private:
 };
 //Constructor
 template<typename T>
-MyVector<T>::MyVector() {
+myVector<T>::myVector() {
     array = new T[initSize];
     Size = initSize;
     count = 0;
 }
 template<typename T>
-T & MyVector<T>::operator[](int index) {
+T & myVector<T>::operator[](int index) {
     if(index < 0 || index >= count){
         cout << "!!!!   Index is not correct   !!!!" <<endl;
         exit(1);
@@ -51,7 +51,7 @@ T & MyVector<T>::operator[](int index) {
 }
 
 template<typename T>
-void MyVector<T>::pushBack(T value) {
+void myVector<T>::pushBack(T value) {
     //if count of elements in array stay at the last element - array extending
     if (count == Size) {
         extendArray();
@@ -61,17 +61,17 @@ void MyVector<T>::pushBack(T value) {
 }
 
 template <typename T>
-void MyVector<T>::clear() {
+void myVector<T>::clear() {
     count = 0;
 }
 
 template <typename T>
-bool MyVector<T>::isEmpty() const {
+bool myVector<T>::isEmpty() const {
     return count == 0;
 }
 
 template <typename T>
-void MyVector<T>::remove(int index) {
+void myVector<T>::remove(int index) {
     if(index < 0 || index >= count) {
         cout << "!!!!   Index is not correct   !!!!" <<endl;
         exit(1);
@@ -83,7 +83,7 @@ void MyVector<T>::remove(int index) {
 }
 
 template <typename T>
-void MyVector<T>::set(int index, T value) {
+void myVector<T>::set(int index, T value) {
     if(index < 0 || index >= count){
         cout << "!!!!   Index is not correct   !!!!" << endl;
         exit(1);
@@ -92,12 +92,12 @@ void MyVector<T>::set(int index, T value) {
 }
 
 template <typename T>
-int MyVector<T>::size() const {
+int myVector<T>::size() const {
     return count;
 }
 
 template <typename T>
-void MyVector<T>::extendArray() {
+void myVector<T>::extendArray() {
     T *oldArray = array;
     Size *= 2;
     array = new T[Size];
@@ -108,7 +108,7 @@ void MyVector<T>::extendArray() {
 }
 //Copy constructor
 template<typename T>
-MyVector<T>::MyVector(const MyVector<T> & src) {
+myVector<T>::myVector(const myVector<T> & src) {
     this->array = new T[src.Size];
     count = src.count;
     Size = src.Size;
@@ -118,7 +118,7 @@ MyVector<T>::MyVector(const MyVector<T> & src) {
 }
 //function of operator '='
 template<typename T>
-MyVector<T> & MyVector<T>::operator =(const MyVector<T> & src) {
+myVector<T> & myVector<T>::operator =(const myVector<T> & src) {
     delete[] array;
     this->array = new T[src.Size];
     count = src.count;
@@ -130,7 +130,7 @@ MyVector<T> & MyVector<T>::operator =(const MyVector<T> & src) {
 }
 //destructor
 template<typename T>
-MyVector<T>::~MyVector() {
+myVector<T>::~myVector() {
     count = 0;
     delete [] array;
 }

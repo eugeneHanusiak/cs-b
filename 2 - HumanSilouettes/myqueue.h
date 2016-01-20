@@ -7,7 +7,7 @@ using namespace std;
 
 template <typename T>
 
-class MyQueue {
+class myQueue {
 private:
     //struct stores data and pointer to next element in Queue
     struct Node {
@@ -21,9 +21,9 @@ private:
     //pointer to tail of Queue
     Node *tail;
 public:
-    MyQueue();
-    MyQueue(const MyQueue<T>& otherQueue);
-    ~MyQueue();
+    myQueue();
+    myQueue(const myQueue<T>& otherQueue);
+    ~myQueue();
     void pushBack(const T&);
     void popFront();
     bool isEmpty();
@@ -35,14 +35,14 @@ public:
 
 //Constructor
 template <typename T>
-MyQueue<T>::MyQueue() {
+myQueue<T>::myQueue() {
     head = tail = NULL;
     count = 0;
 }
 
 //Copy-constructor
 template <typename T>
-MyQueue<T>::MyQueue(const MyQueue<T>& otherQueue) {
+myQueue<T>::myQueue(const myQueue<T>& otherQueue) {
     if (!otherQueue.isEmpty()) {
         head = tail = 0;
         count = 0;
@@ -56,13 +56,13 @@ MyQueue<T>::MyQueue(const MyQueue<T>& otherQueue) {
 }
 //Destructor
 template <typename T>
-MyQueue<T>::~MyQueue() {
+myQueue<T>::~myQueue() {
     clear();
 }
 
 //Add element to the end of Queue
 template <typename T>
-void MyQueue<T>::pushBack(const T& value) {
+void myQueue<T>::pushBack(const T& value) {
     Node *n = new Node;
     n->data = value;
     n->next = NULL;
@@ -78,7 +78,7 @@ void MyQueue<T>::pushBack(const T& value) {
 
 //Delete the first element from the Queue
 template <typename T>
-void MyQueue<T>::popFront() {
+void myQueue<T>::popFront() {
     if (isEmpty()) {
         cout << "ERROR!!! You trying to pop front empty Queue." << endl;
         exit(0);
@@ -94,19 +94,19 @@ void MyQueue<T>::popFront() {
 
 //Check the Queue is empty
 template <typename T>
-bool MyQueue<T>::isEmpty() {
+bool myQueue<T>::isEmpty() {
     return count == 0;
 }
 
 //Return number of elements of the Queue
 template <typename T>
-int MyQueue<T>::size() {
+int myQueue<T>::size() {
     return count;
 }
 
 //Return first element in the Queue
 template <typename T>
-T& MyQueue<T>::front() {
+T& myQueue<T>::front() {
     if (isEmpty()) {
         cout << "Can't do 'front'. The Queue is empty." << endl;
         exit(0);
@@ -116,7 +116,7 @@ T& MyQueue<T>::front() {
 
 //Return last element in the Queue
 template <typename T>
-T& MyQueue<T>::back() {
+T& myQueue<T>::back() {
     if (isEmpty()) {
         cout << "Can't do 'back'. The Queue is empty." << endl;
         exit(0);
@@ -126,7 +126,7 @@ T& MyQueue<T>::back() {
 
 //Delete all elements of the Queue(clear Queue)
 template <typename T>
-void MyQueue<T>::clear() {
+void myQueue<T>::clear() {
     while (head != NULL) {
         head = head->next;
     }

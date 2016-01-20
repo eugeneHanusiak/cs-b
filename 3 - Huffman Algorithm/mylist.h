@@ -4,7 +4,7 @@ using namespace std;
 
 template <typename T>
 
-class MyList {
+class myList {
 private:
     //struct stores data and pointers to previous and next element in list
     struct Node {
@@ -19,9 +19,9 @@ private:
     //pointer to tali of list
     Node *tail;
 public:
-    MyList();
-    MyList(const MyList<T>& otherList);
-    ~MyList();
+    myList();
+    myList(const myList<T>& otherList);
+    ~myList();
     void push_front(const T&);
     void push_back(const T&);
     void pop_front();
@@ -41,14 +41,14 @@ public:
 
 /*Constructor*/
 template <typename T>
-MyList<T>::MyList() {
+myList<T>::myList() {
     head = tail = NULL;
     count = 0;
 }
 
 /*Copy-constructor*/
 template <typename T>
-MyList<T>::MyList(const MyList<T>& otherList) {
+myList<T>::myList(const myList<T>& otherList) {
     if (!otherList.empty()) {
         head = tail = 0;
         count = 0;
@@ -62,13 +62,13 @@ MyList<T>::MyList(const MyList<T>& otherList) {
 }
 /*Destructor*/
 template <typename T>
-MyList<T>::~MyList() {
+myList<T>::~myList() {
     clear();
 }
 
 /*Add element to the start of list*/
 template <typename T>
-void MyList<T>::push_front(const T& value) {
+void myList<T>::push_front(const T& value) {
     Node *n = new Node;
     n->data = value;
     n->next = NULL;
@@ -86,7 +86,7 @@ void MyList<T>::push_front(const T& value) {
 
 /*Add element to the end of list*/
 template <typename T>
-void MyList<T>::push_back(const T& value) {
+void myList<T>::push_back(const T& value) {
     Node *n = new Node;
     n->data = value;
     n->next = NULL;
@@ -104,7 +104,7 @@ void MyList<T>::push_back(const T& value) {
 
 /*Delete the first element from the list*/
 template <typename T>
-void MyList<T>::pop_front() {
+void myList<T>::pop_front() {
     if (empty()) {
         cerr << "ERROR!!! You trying to pop front empty list." << endl;
         exit(0);
@@ -121,7 +121,7 @@ void MyList<T>::pop_front() {
 
 /*Delete last element from the list*/
 template <typename T>
-void MyList<T>::pop_back() {
+void myList<T>::pop_back() {
     if (empty()) {
         cerr << "ERROR!!!You trying to po back empty list." << endl;
         exit(0);
@@ -137,19 +137,19 @@ void MyList<T>::pop_back() {
 
 /*Check the list is empty*/
 template <typename T>
-bool MyList<T>::empty() {
+bool myList<T>::empty() {
     return count == 0;
 }
 
 /*Return number of elements of the list*/
 template <typename T>
-int MyList<T>::size() {
+int myList<T>::size() {
     return count;
 }
 
 /*Return first element in the list*/
 template <typename T>
-T& MyList<T>::front() {
+T& myList<T>::front() {
     if (empty()) {
         cerr << "Can't do 'front'. The list is empty." << endl;
         exit(0);
@@ -159,7 +159,7 @@ T& MyList<T>::front() {
 
 /*Return last element in the list*/
 template <typename T>
-T& MyList<T>::back() {
+T& myList<T>::back() {
     if (empty()) {
         cerr << "Can't do 'back'. The list is empty." << endl;
         exit(0);
@@ -169,19 +169,19 @@ T& MyList<T>::back() {
 
 /*Pointer to the start of the list*/
 template <typename T>
-typename MyList<T>::iterator MyList<T>::begin() {
+typename myList<T>::iterator myList<T>::begin() {
     return head;
 }
 
 /*Pointer to the end of the list*/
 template <typename T>
-typename MyList<T>::iterator MyList<T>::end() {
+typename myList<T>::iterator myList<T>::end() {
     return tail;
 }
 
 /*Delete all elements of the list(clear list)*/
 template <typename T>
-void MyList<T>::clear() {
+void myList<T>::clear() {
     while (head) {
         head->prev = NULL;
         head = head->next;
@@ -191,7 +191,7 @@ void MyList<T>::clear() {
 
 /*Insert element to the list in current position using iterator*/
 template <typename T>
-void MyList<T>::insert(iterator it, const T& value) {
+void myList<T>::insert(iterator it, const T& value) {
     if (empty()) {
         cerr << "Can't 'insert'. The list is empty." << endl;
         exit(0);
@@ -216,7 +216,7 @@ void MyList<T>::insert(iterator it, const T& value) {
 
 /*Delete element from the list from the current position using iterator*/
 template <typename T>
-void MyList<T>::erase(iterator it) {
+void myList<T>::erase(iterator it) {
     if (empty()) {
         cerr << "Can't 'erase'. The list is empty." << endl;
         exit(0);
@@ -239,7 +239,7 @@ void MyList<T>::erase(iterator it) {
 }
 template <typename T>
 /*Sorting elements in list*/
-void MyList<T>::sort() {
+void myList<T>::sort() {
     if (empty()) {
         cerr << "Can't 'insert'. The list is empty." << endl;
         exit(0);
