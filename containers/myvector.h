@@ -22,7 +22,7 @@ public:
     //set value T to the index int
     void set(int, T);
     //return int size of vector
-    int size() const;
+    int  vectorSize() const;
     //takes element at[int] position in vector
     T & operator[](int);
 
@@ -30,7 +30,7 @@ private:
     //array that will store vector data
     T *array;
     //size of array
-    int Size;
+    int size;
     //number of the element in array
     int count;
     //default init size of vector
@@ -42,7 +42,7 @@ private:
 template<typename T>
 MyVector<T>::MyVector() {
     array = new T[initSize];
-    Size = initSize;
+    size = initSize;
     count = 0;
 }
 template<typename T>
@@ -57,7 +57,7 @@ T & MyVector<T>::operator[](int index) {
 //push value to end of vector
 template<typename T>
 void MyVector<T>::pushBack(T value) {
-    if (count == Size) {
+    if (count == size) {
         extendArray();
     }
     array[count] = value;
@@ -88,7 +88,7 @@ void MyVector<T>::remove(int index) {
 //set value by index
 template <typename T>
 void MyVector<T>::set(int index, T value) {
-    if(index < 0 || index >= count){
+    if(index < 0 || index >= count) {
         cout << "!!!!   Index is not correct   !!!!" << endl;
         exit(1);
     }
@@ -96,15 +96,15 @@ void MyVector<T>::set(int index, T value) {
 }
 //return size of vector
 template <typename T>
-int MyVector<T>::size() const {
+int MyVector<T>:: vectorSize() const {
     return count;
 }
 //extending vector on its size
 template <typename T>
 void MyVector<T>::extendArray() {
     T *oldArray = array;
-    Size *= 2;
-    array = new T[Size];
+    size *= 2;
+    array = new T[size];
     for (int i = 0; i < count; i++) {
         array[i] = oldArray[i];
     }
@@ -113,9 +113,9 @@ void MyVector<T>::extendArray() {
 //copy constructor
 template<typename T>
 MyVector<T>::MyVector(const MyVector<T> & src) {
-    this->array = new T[src.Size];
+    this->array = new T[src.size];
     count = src.count;
-    Size = src.Size;
+    size = src.size;
     for (int i = 0; i < src.count; i++) {
         array[i] = src.array[i];
     }
@@ -124,9 +124,9 @@ MyVector<T>::MyVector(const MyVector<T> & src) {
 template<typename T>
 MyVector<T> & MyVector<T>::operator =(const MyVector<T> & src) {
     delete[] array;
-    this->array = new T[src.Size];
+    this->array = new T[src.size];
     count = src.count;
-    Size = src.Size;
+    size = src.size;
     for (int i = 0; i < src.count; i++) {
         array[i] = src.array[i];
     }

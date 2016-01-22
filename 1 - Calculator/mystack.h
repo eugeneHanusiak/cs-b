@@ -24,7 +24,7 @@ public:
 
 //constructor
 template <typename T>
-myStack<T>::myStack(int size){
+myStack<T>::myStack(int size) {
     if(size <= 0){
         cout << "!!!!   Incorrect size of the stack     !!!!" << endl;
         exit(1);
@@ -36,24 +36,24 @@ myStack<T>::myStack(int size){
 
 //copy constructor
 template <typename T>
-myStack<T>::myStack(const myStack<T>& otherStack){
+myStack<T>::myStack(const myStack<T>& otherStack) {
     capacity = otherStack.capacity;
     array = new T[capacity];
     count = otherStack.count;
-    for(int i = 0; i < capacity; i++){
+    for(int i = 0; i < capacity; i++) {
         array[i] = otherStack.array[i];
     }
 }
 
 //destructor
 template <typename T>
-myStack<T>::~myStack(){
+myStack<T>::~myStack() {
     delete[] array;
 }
 
 //add element to the top of stack
 template <typename T>
-void myStack<T>::push(const T& value){
+void myStack<T>::push(const T& value) {
     if(count == capacity ) {
         doubleCapacity();
     }
@@ -63,8 +63,8 @@ void myStack<T>::push(const T& value){
 
 //delete top element from the stack
 template <typename T>
-void myStack<T>::pop(){
-    if(count == 0){
+void myStack<T>::pop() {
+    if(count == 0) {
         cout << "!!!!   Stack is empty   !!!!" << endl;
         exit(1);
     }
@@ -73,8 +73,8 @@ void myStack<T>::pop(){
 
 //top element of the stack
 template <typename T>
-T& myStack<T>::top(){
-    if(count == 0){
+T& myStack<T>::top() {
+    if(count == 0) {
         cout << "!!!!   Stack is empty   !!!!" <<endl;
         exit(1);
     }
@@ -83,13 +83,13 @@ T& myStack<T>::top(){
 
 //check the stack is empty
 template <typename T>
-bool myStack<T>::empty(){
+bool myStack<T>::empty() {
     return count == 0;
 }
 
 //the number of elements in the stack
 template <typename T>
-int myStack<T>::size(){
+int myStack<T>::size() {
     return  count;
 }
 

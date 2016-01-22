@@ -13,9 +13,9 @@ public:
     Node() {
         left = right = NULL;
     }
-    Node(int some,unsigned char som,int s) {
-        f = some;
-        c = som;
+    Node(int i,unsigned char c,int s) {
+        f = i;
+        c = c;
         size = s;
     }
     Node(Node *L, Node *R) {

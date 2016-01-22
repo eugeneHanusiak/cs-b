@@ -25,7 +25,7 @@ public:
 //constructor
 template <typename T>
 MyStack<T>::MyStack(int size) {
-    if(size <= 0){
+    if(size <= 0) {
         cout << "!!!!   Incorrect size of the stack     !!!!" << endl;
         exit(1);
     }
