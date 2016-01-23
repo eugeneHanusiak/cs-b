@@ -90,7 +90,6 @@ void compress(ifstream &f,string s) {
     for(int i = 0; i < cmp.length(); i++) {
         g.write((char*) &cmp[i], sizeof(cmp[i]));
     }
-
     // write to the file tree's size for future reading it from file
     int treeSize = frequencies.vectorSize();
     g.write((char*) &treeSize, sizeof (treeSize));
