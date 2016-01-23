@@ -32,7 +32,7 @@ void buildTable(Node *root, myVector<myVector<bool> > &table, myVector<bool> &co
 void makeTree(myVector<int> frequencies, myList<Node*> &tree) {
 
     // make a list of start nodes of tree
-    for(int i(0); i < frequencies.size(); i++) {
+    for(int i(0); i < frequencies.vectorSize(); i++) {
         Node *p = new Node;
         p->c = char(i);
         p->f = frequencies[i];
@@ -55,7 +55,7 @@ void compress(ifstream &f,string s) {
 
     //frequencies of letters or symbols
     myVector<int> frequencies(256);
-    for(int i = 0; i < frequencies.size(); i++) {
+    for(int i = 0; i < frequencies.vectorSize(); i++) {
         frequencies[i] = 0;
     }
     //reading frequencies of symbols
@@ -91,7 +91,7 @@ void compress(ifstream &f,string s) {
 //    }
 
     // write to the file tree's size for future reading it from file
-    int treeSize = frequencies.size();
+    int treeSize = frequencies.vectorSize();
     g.write((char*) &treeSize, sizeof (treeSize));
     //write to the file the tree
     for (int i = 0; i < treeSize; i++) {
@@ -106,7 +106,7 @@ void compress(ifstream &f,string s) {
         unsigned char c = f.get();
         myVector<bool> x = table[c];
         //fill bits of char buf by using bitwise "OR" and write it to the file
-        for(int n = 0; n < x.size(); n++) {
+        for(int n = 0; n < x.vectorSize(); n++) {
             buf = buf | x[n] << (7 - count);
             count++;
             //all 8 bits of char buf are filled
