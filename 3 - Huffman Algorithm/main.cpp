@@ -85,10 +85,11 @@ void compress(ifstream &f,string s) {
     ofstream g(name.c_str(), ios::binary);
 
     //writing format of the "file" to the output file
+
     string cmp = s.substr(s.length() - 3, s.length());
-//    for(int i = 0; i < cmp.length(); i++) {
-        g.write((char*) cmp.c_str(), sizeof(cmp.c_str()));
-//    }
+    for(int i = 0; i < cmp.length(); i++) {
+        g.write((char*) &cmp[i], sizeof(cmp[i]));
+    }
 
     // write to the file tree's size for future reading it from file
     int treeSize = frequencies.vectorSize();
@@ -125,14 +126,12 @@ void compress(ifstream &f,string s) {
 void decompress(string &s) {
     ifstream f(s.c_str(), ios::binary);
     //name of compressed file
-    string file;
+    string file = s;
 
     //read start format of the file in compressed file and replace "cmp" in name of compresse file
-
- //   for(int i = file.length() - 3; i < file.length(); i++) {
-        f.read((char*) file.c_str(), sizeof(file.c_str()));
-   // }
-        cout<<file;
+    for(int i = file.length() - 3; i < file.length(); i++) {
+        f.read((char*) &file[i], sizeof(file[i]));
+    }
     //output stream
     ofstream g(file.c_str());
 
