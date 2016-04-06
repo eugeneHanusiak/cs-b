@@ -241,7 +241,7 @@ template <typename T>
 /*sorting elements in list*/
 void MyList<T>::sort() {
     if (empty()) {
-        cerr << "Can't 'insert'. The list is empty." << endl;
+        cerr << "Can't 'sort'. The list is empty." << endl;
         exit(0);
     }
     if (head != 0) {

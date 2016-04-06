@@ -81,15 +81,9 @@ void compress(ifstream &f,string s) {
     f.clear(); f.seekg(0);
 
     //writing the name of file with "cmp"
-    string name = s.substr(0, s.length() - 3) + "cmp";
+    string name = s + ".cmp";
     ofstream g(name.c_str(), ios::binary);
 
-    //writing format of the "file" to the output file
-
-    string cmp = s.substr(s.length() - 3, s.length());
-    for(int i = 0; i < cmp.length(); i++) {
-        g.write((char*) &cmp[i], sizeof(cmp[i]));
-    }
     // write to the file tree's size for future reading it from file
     int treeSize = frequencies.vectorSize();
     g.write((char*) &treeSize, sizeof (treeSize));
@@ -125,12 +119,7 @@ void compress(ifstream &f,string s) {
 void decompress(string &s) {
     ifstream f(s.c_str(), ios::binary);
     //name of compressed file
-    string file = s;
-
-    //read start format of the file in compressed file and replace "cmp" in name of compresse file
-    for(int i = file.length() - 3; i < file.length(); i++) {
-        f.read((char*) &file[i], sizeof(file[i]));
-    }
+    string file = s.substr(0, s.length()-4);
     //output stream
     ofstream g(file.c_str());
 
@@ -195,7 +184,7 @@ int main(){
     getline(cin,cmd);
     if(cmd == "compress") {
         compress(f,fileName);
-        cout<<"File succssesfully compressed to "<<fileName.substr(0, fileName.length() - 3)<<"cmp !!!"<<endl;
+        cout<<"File succssesfully compressed to "<<fileName<<".cmp !!!"<<endl;
     }else if(cmd == "decompress") {
         decompress(fileName);
         cout<<"File succssesfully decompressed!"<<endl;

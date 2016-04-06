@@ -21,7 +21,7 @@ const int minNumNeighbours = 400;
 boolean isBlackPoint(int row,int col,GBufferedImage &img) {
     //gets GRB color of pixel
     int rgb = img.getRGB(row,col);
-    return (img.getBlue(rgb) <= maxValue & img.getRed(rgb) <= maxValue & img.getGreen(rgb) <= maxValue);
+    return (img.getRed(rgb) <= maxValue && img.getGreen(rgb) <= maxValue && img.getBlue(rgb) <= maxValue);
 }
 
 //check number of balck points at blur
@@ -36,7 +36,7 @@ void checkBlur(GBufferedImage &img, myQueue<point> &blackPoints,int &humansCount
         for(int row = curr.row - 1; row <= curr.row + 1; row++) {
             for(int column = curr.col - 1; column <= curr.col + 1; column++) {
 
-                if(row <= img.getWidth() & row >= 0 & column <= img.getHeight() & column >= 0) {
+                if((row >= 0 && row <= img.getWidth()) && (column >= 0 && column <= img.getHeight())) {
 
                     //if neighbour is black - set it color white and add to queue of neighbours
                     if(isBlackPoint(row,column,img)) {
